@@ -1,0 +1,31 @@
+<!doctype html>  
+<html lang="en">  
+    <head>
+
+    </head>
+    <body>
+        <h1>Hello World!</h1>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>  
+            // var socket = io.connect('http://127.0.0.1:4200');
+            // socket.on('connect', function(data) {
+            //    socket.emit('join', 'Hello World from client');
+            // });
+            const socket = io();
+
+            socket.on('connect', () => {
+                console.log("connect");
+                socket.emit("spawn",{username: "Franklin Prime"});
+            });
+            socket.on('state', (data) => {
+                console.log("state", data);
+            });
+
+            // socket.on('id', (id) => {
+            //     let toAdd=document.createElement("DIV");
+            //     toAdd.innerHTML=`hello - ${counter}`;
+            //     document.body.appendChild(toAdd);
+            // });
+        </script>
+    </body>
+</html>

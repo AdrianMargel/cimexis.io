@@ -1,0 +1,538 @@
+html{
+	font-family: 'Nunito', sans-serif;
+	color: #6D6862;
+}
+*:focus{
+	outline: none;
+}
+a{
+	color: inherit;
+	text-decoration: none;
+	cursor: pointer;
+}
+a:hover{
+	color: #AAA49D;
+}
+body{
+	background-color: #EFE9D7;
+}
+button{
+	background-color: #6ED393;
+	/*border: 4px solid #65BFB6;*/
+	border: none;
+	border-radius: 10px;
+	font-family: 'Nunito', sans-serif;
+	color: white;
+	font-weight: 700;
+	font-size: 20px;
+	padding: 10px 40px;
+
+	margin-top: 20px;
+}
+button:active{
+	background-color: #51BC76;
+}
+button.half{
+	padding-top: 7px;
+	margin-top: 0;
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+}
+
+input{
+	border-radius: 10px;
+	padding: 5px 10px;
+	border: 2px solid #AAA49D;
+	font-size: 20px;
+	background-color: transparent;
+
+	font-family: 'Nunito', sans-serif;
+	color: #6D6862;
+	text-align: center;
+	font-weight: 700;
+
+}
+h1{
+	position: absolute;
+	right: 0;
+	left: 0;
+	top: 40px;
+	font-size: 100px;
+	z-index: 10;
+	text-align: center;
+	font-family: 'Fredoka One', sans-serif;
+}
+io-stat-select{
+	display: block;
+}
+.subtitle{
+	font-weight: 700;
+	font-size: 30px;
+}
+
+.scoreboard{
+	position: absolute;
+	width: 300px;
+	right: 20px;
+	top: 20px;
+	background-color: #FfFfFfA0;
+	padding: 20px;
+	padding-top: 10px;
+}
+.scoreboard .title{
+	text-align: center;
+	margin-bottom: 10px;
+	padding-bottom: 5px;
+	font-weight: 900;
+	font-size: 18px;
+	border-bottom: 2px solid #6D6862;
+}
+.scoreboard .item{
+	display: flex;
+	flex-direction: row;
+	font-weight: 700;
+	font-size: 20px;
+}
+
+.scoreboard .item .rank{
+	margin-left: 10px;
+	min-width: 30px;
+	font-weight: 900;
+}
+.scoreboard .item .name{
+	margin-right: 5px;
+}
+.scoreboard .item .score{
+	color: #AAA49D;
+	font-weight: 400;
+}
+
+.map{
+	position: absolute;
+	width: 200px;
+	right: 20px;
+	bottom: 20px;
+	background-color: #FfFfFfA0;
+	padding: 20px;
+	padding-top: 10px;
+}
+.map>canvas{
+	border: 2px solid #6D6862;
+}
+.map .title{
+	text-align: center;
+	margin-bottom: 0px;
+	padding-bottom: 5px;
+	font-weight: 900;
+	font-size: 18px;
+}
+
+.canvasContainer{
+	display: inline-block;
+	position: relative;
+	flex-grow: 1;
+	display: flex;
+	overflow: hidden;
+	max-height: 100vh;
+}
+.canvasContainer>canvas{
+	flex-grow: 1;
+	min-height: 100vh;
+}
+.split{
+	display: flex;
+}
+
+.controlContainer{
+	background-color: #F5F5F5;
+	min-width: 500px;
+	max-width: 500px;
+	overflow-y: auto;
+	height: 100vh;
+}
+.controlContainer .title{
+	text-align: center;
+	font-weight: 900;
+	font-size: 40px;
+}
+.controlContainer .gap{
+	margin-top: 8px;
+}
+.userInfo{
+	padding: 20px 50px;
+	padding-top: 0;
+}
+.userInfo .close{
+	display: flex;
+	justify-content: right;
+}
+.userSelector{
+	background-color: #3D362E;
+	color: #635A51;
+	position: relative;
+}
+.userSelector p{
+	padding: 20px;
+	text-align: center;
+}
+.userSelector .arrow{
+	border-color: #635A51;
+	border-width: 0 6px 6px 0;
+	padding: 6px;
+	position: absolute;
+	top: 31px;
+}
+.userSelector .arrow:hover{
+	border-color: #877D72;
+}
+.userSelector a{
+	padding: 20px;
+	position: absolute;
+	bottom: -15px;
+	right: -15px;
+}
+.userSelector .arrow.right{
+	right: 30px;
+}
+.userSelector .arrow.left{
+	left: 30px;
+}
+
+.stats{
+	margin-top: 5px;
+	padding-left: 30px;
+	padding-right: 30px;
+	user-select: none;
+}
+.controlContainer .subtitle{
+	margin-top: 30px;
+	margin-bottom: 8px;
+}
+.stats .item{
+	font-size: 20px;
+	padding-bottom: 12px;
+}
+.stats .item p{
+	margin-bottom: 3px;
+	position: relative;
+}
+.stats .item p span{
+	font-size: 16px;
+	position: absolute;
+	right: 0;
+	bottom: -2px;
+	padding-left: 10px;
+}
+.stats .item .bar{
+	height: 10px;
+	border-bottom: 2px solid #AAA49D;
+	border-left: 4px solid #AAA49D;
+	margin-left: 8px;
+	/*overflow: hidden;*/
+}
+.stats .item .bar>div{
+	height: 10px;
+	width: 25%;
+	background-color: #6ED393;
+	border-radius: 10px;
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+	position: relative;
+}
+.stats .item .bar>div .grabber{
+	background-color: #6ED393;
+	border: 2px solid #51BC76;
+	height: 14px;
+	width: 14px;
+	border-radius: 2px;
+	position: absolute;
+	right: -7px;
+	top: -3px;
+	display: none;
+}
+.stats .item:hover .bar>div .grabber{
+	display: block;
+}
+.stats .item:active .bar>div .grabber{
+	background-color: #51BC76;
+	border: 2px solid #51BC76;
+	display: block;
+}
+.stats .item:hover .bar, .item:active .bar{
+	background-color: #EDEAE8;
+}
+.general{
+	margin-top: 5px;
+	padding-left: 30px;
+	padding-right: 30px;
+	font-size: 20px;
+}
+.general .subtitle{
+	margin-top: -16px;
+}
+
+.fade{
+	color: #AAA49D;
+}
+.center{
+	display: flex;
+	justify-content: center;
+}
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.spawnDialog{
+	position: fixed;
+	right: 0;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 10;
+	padding-top: 150px;
+	min-height: 600px;
+}
+.spawnDialog .inner{
+	border-radius: 10px;
+	padding: 10px 20px;
+	background-color: #F5F5F5;
+
+	width: 600px;
+	height: 500px;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+}
+.spawnDialog .inner .head{
+	padding-top: 20px;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+}
+.spawnDialog .inner .head p{
+	font-size: 30px;
+	font-weight: 700;
+	text-align: center;
+	margin-bottom: 10px;
+}
+.spawnDialog .inner .head .username{
+	display: flex;
+	justify-content: center;
+}
+.spawnDialog .inner .head .username input{
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	margin: 0;
+	border-right: none;
+}
+.spawnDialog .inner .head .username button{
+	margin: 0;
+	font-size: 30px;
+	font-weight: 900;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+.spawnDialog .inner .head .username button .arrow{
+	border-color: white;
+	position: relative;
+	left: -3px;
+	top: -3px;
+	border-width: 0 4px 4px 0;
+	padding: 4px;
+}
+.spawnDialog .inner .body{
+	padding-top: 40px;
+	display: flex;
+	justify-content: center;
+}
+.spawnDialog .inner .body .weaponSelector{
+	width: 204px;
+    padding-right: 20px;
+    padding-left: 10px;
+}
+.spawnDialog .inner .body .weaponSelector .previewContainer{
+	margin-bottom: 15px;
+	height: 150px;
+	border-bottom: #AAA49D 3px solid;
+}
+/*.spawnDialog .inner .body .weaponSelector p{
+	text-align: center;
+	font-weight: 700;
+	margin: 15px -20px;
+	user-select: none;
+}*/
+.spawnDialog .inner .body .stats{
+	width: 300px;
+	margin-top: 5px;
+    padding-right: 0px;
+    padding-left: 20px;
+}
+.spawnDialog .inner .body .stats .scroll{
+	overflow-y: auto;
+	height: 320px;
+	padding-right: 10px;
+}
+.spawnDialog .inner .body .stats .subtitle{
+	margin-bottom: 8px;
+}
+
+io-dropdown{
+	display: block;
+}
+.dropDown{
+	height: 40px;
+	/*overflow: hidden;*/
+	border: #AAA49D 2px solid;
+	border-radius: 10px;
+	position: relative;
+	font-family: 'sen', sans-serif;
+}
+.dropDown .arrow{
+	pointer-events: none;
+	border-color: #AAA49D;
+	position: absolute;
+	right: 14px;
+}
+.dropDown .arrow.up{
+	top: 10px;
+}
+.dropDown .arrow.down{
+	bottom: 10px;
+}
+.dropDown .selection{
+	height: 200px;
+	width: 100%;
+	overflow: hidden;
+	position: absolute;
+	top: -80px;
+	-webkit-mask-image: -webkit-gradient(
+	    linear, center top, center bottom, 
+	    color-stop(0,  rgba(0,0,0,0)),
+	    color-stop(0.4,  rgba(0,0,0,1)),
+	    color-stop(0.6,  rgba(0,0,0,1)),
+	    color-stop(1.00,  rgba(0,0,0,0)));
+}
+.dropDown .over{
+	pointer-events: none;
+	position: absolute;
+	right: -2px;
+	left: -2px;
+	top: -2px;
+	bottom: -2px;
+	height: 40px;
+	/*overflow: hidden;*/
+	border: #AAA49D 2px solid;
+	border-radius: 10px;
+}
+.dropDown .list{
+	width: 100%;
+	position: absolute;
+	transition: top 0.2s;
+}
+.dropDown .item{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	height: 40px;
+	font-size: 20px;
+	user-select: none;
+	cursor: pointer;
+	background-color: #F5F5F5;
+}
+.dropDown .item:hover{
+	color: #AAA49D;
+}
+
+.weaponSelector .inputs{
+	display: flex;
+}
+.weaponSelector .inputs .dropDown{
+	flex-grow: 1;
+	margin-right: 10px;
+}
+.colorPicker{
+	position: relative;
+	z-index: 10;
+	width: 44px;
+	height: 44px;
+}
+.colorPicker .picker{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 5px;
+	border: #AAA49D 2px solid;
+	border-radius: 10px;
+	background-color: #F5F5F5;
+	position: absolute;
+}
+.colorPicker .control{
+	position: relative;
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+	transition: width 0.5s, margin 0.5s;
+}
+.colorPicker input{
+	background-color: #EDEAE8;
+	border-radius: 0;
+	border-top-right-radius: 6px;
+	border: none;
+	border-bottom: #AAA49D 3px solid;
+	text-align: left;
+	font-size: 16px;
+	padding-bottom: 0;
+	width: calc(100% - 20px);
+}
+.colorPicker .text{
+	margin: 0;
+	user-select: initial;
+	font-weight: 700;
+	text-align: center;
+	position: absolute;
+	right: 10px;
+	color: #AAA49D;
+	padding-top: 3px;
+}
+.colorPicker .colorIcon{
+	cursor: pointer;
+	height: 30px;
+	width: 30px;
+	border-radius: 6px;
+}
+
+
+/*
+https://fonts.google.com/specimen/Nunito
+https://fonts.google.com/specimen/Jua
+*/
