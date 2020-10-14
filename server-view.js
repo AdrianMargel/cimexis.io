@@ -88,7 +88,7 @@ io.on('connection', socket => {
 	});
 });
 
-server.listen(4200);
+server.listen();
 
 
 // const Server = require('socket.io');
