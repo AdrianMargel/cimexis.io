@@ -24,6 +24,21 @@ class Display{
 		window.onresize=()=>{this.updateSize();}
 	}
 
+	predict(state,amount){
+		for(let i=0;i<state.bulletsList.length;i++){
+			let toSet=new Vector(state.bulletsList[i].velo);
+			toSet.sclVec(amount);
+			toSet.addVec(state.bulletsList[i].pos);
+			state.bulletsList[i].pos=toSet;
+		}
+		for(let i=0;i<state.playersList.length;i++){
+			let toSet=new Vector(state.playersList[i].velo);
+			toSet.sclVec(amount);
+			toSet.addVec(state.playersList[i].pos);
+			state.playersList[i].pos=toSet;
+		}
+	}
+
 	setFollow(player){
 		this.following=player;
 	}
@@ -33,7 +48,8 @@ class Display{
 		this.cam.pos=new Vector(2.5,1);
 		this.displayMap(new Vector(200,200),5);
 	}
-	display(gameState,settings){
+	display(gameState,settings,anim){
+		//this.predict(gameState,anim);
 		this.calcCam();
 		this.displayMap(settings.size,settings.chunkSize);
 		if(this.following==null){

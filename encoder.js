@@ -55,8 +55,8 @@ function bulletBlob(target){
         target.name,
         target.pos.x,target.pos.y,
         target.velo.x,target.velo.y,
-        target.rot,
-        target.size
+        target.ang,
+        target.size,
     ];
 }
 

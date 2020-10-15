@@ -18,12 +18,7 @@ setInterval(()=>{
 		previewDisplay.displayPreview(previewP);
 	}
 
-	if(state!=null&&settings!=null){
-		if(state.playerUid!=null){
-			gameDisplay.setFollow(getPlayerByUid(state.playerUid));
-		}
-		gameDisplay.display(state,settings);
-	}else{
+	if(!displaying){
 		gameDisplay.displayHollow();
 	}
 
@@ -52,8 +47,33 @@ setInterval(()=>{
 		byteEstimateUp+=byteCount(reqStr);
 		socket.emit("control",reqStr);
 	}
-}, 50);
+}, 1000/10);
 
+var displaying=true;
+var last;
+function animation(timestamp) {
+	if(last===undefined){
+		last=timestamp;
+	}
+	let elapsed=timestamp-last;
+	let runSpeed=1000/30;
+	let animAmount=elapsed/runSpeed;
+	last=timestamp;
+
+	if(state!=null&&settings!=null){
+		if(state.playerUid!=null){
+			gameDisplay.setFollow(getPlayerByUid(state.playerUid));
+		}
+		gameDisplay.display(state,settings,animAmount);
+	}else{
+		gameDisplay.displayHollow();
+	}
+
+	if(displaying){
+		window.requestAnimationFrame(animation);
+	}
+}
+window.requestAnimationFrame(animation);
 
 var spawnStats={
 	sight: 25,
@@ -168,7 +188,7 @@ function parseStateUpdate(str){
 		index++;
 		target.velo.y=+arrRaw[index];
 		index++;
-        target.rot=+arrRaw[index];
+        target.ang=+arrRaw[index];
 		index++;
         target.size=+arrRaw[index];
 		index++;

@@ -32,11 +32,33 @@ app.use(express.static(__dirname + '/node_modules'));
 
 app.use(express.static('client'))
 
+var cycleCount=0;
+var lastTime=0;
+
 createGame();
 setInterval(()=>{
+	cycleCount++;
 	runGame();
-	sendStateUpdate();
-}, 50);
+	if(cycleCount%3==0){
+		sendStateUpdate();
+	}
+	calcRunningSpeed();
+}, 1000/30);
+
+function calcRunningSpeed(){
+	if(cycleCount%30==0&&cycleCount>30){
+		let currTime=getRealTime();
+		let timePassed=currTime-lastTime;
+		if(lastTime!=0){
+			console.log("30 frames took " + timePassed + " ms");
+		}
+		lastTime=currTime;
+	}
+}
+
+function getRealTime(){
+	return Date.now();
+}
 
 var dirtyBaseline=false;
 function sendStateBaseline(){

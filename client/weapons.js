@@ -511,6 +511,8 @@ class Bullet{
 		this.colorDark=shooter.colorDark;
 		this.colorLight=shooter.colorLight;
 
+		this.ang=0;
+
 		this.name="bullet";
 	}
 
