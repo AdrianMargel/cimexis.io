@@ -426,8 +426,10 @@ class GameState{
 		let sight=target.sight;
 		let visP=[];
 		for(let i=0;i<this.playersList.length;i++){
-			if(this.canSee(sight,target.pos,this.playersList[i].size,this.playersList[i].pos)){
-				visP.push(this.playersList[i]);
+			if(this.playersList[i].visible||this.playersList[i].uid==target.uid){
+				if(this.canSee(sight,target.pos,this.playersList[i].size,this.playersList[i].pos)){
+					visP.push(this.playersList[i]);
+				}
 			}
 		}
 		return visP;
