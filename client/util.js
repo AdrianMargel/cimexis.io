@@ -216,3 +216,7 @@ function isHex(h) {
 	}
 	return (aStr===h2.toLowerCase())
 }
+
+function clone(target){
+	return JSON.parse(JSON.stringify(target));
+}

@@ -23,7 +23,7 @@ var express = require('express');
 var app = express();  
 var server = require('http').createServer(app);  
 var io = require('socket.io')(server);
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4200;
 
 app.use(express.static(__dirname + '/node_modules'));  
 // app.get('/', function(req, res,next) {  
@@ -38,19 +38,19 @@ var lastTime=0;
 createGame();
 setInterval(()=>{
 	cycleCount++;
-	runGame();
-	if(cycleCount%3==0){
-		sendStateUpdate();
+	for(let i=0;i<3;i++){
+		runGame();
 	}
+	sendStateUpdate();
 	calcRunningSpeed();
-}, 1000/30);
+}, 100);
 
 function calcRunningSpeed(){
-	if(cycleCount%30==0&&cycleCount>30){
+	if(cycleCount%10==0&&cycleCount>10){
 		let currTime=getRealTime();
 		let timePassed=currTime-lastTime;
 		if(lastTime!=0){
-			console.log("30 frames took " + timePassed + " ms");
+			//console.log("10 frames took " + timePassed + " ms");
 		}
 		lastTime=currTime;
 	}

@@ -5,6 +5,8 @@ class Camera{
 	}
 }
 
+//call newState to figure out how far everything needs to move/how fast
+//call predict to animate this path 
 class Display{
 	constructor(){
 		this.cam=new Camera();
@@ -19,28 +21,110 @@ class Display{
 		this.following=null;
 		this.mapCanvasSize=new Vector(200,200);
 		this.updateSize();
+		this.phantomState=null;
+		this.state=null;
 	}
 	connect(){
 		window.onresize=()=>{this.updateSize();}
 	}
 
-	predict(state,amount){
+	newState(state){
+		this.state=state;
+		if(this.phantomState==null){
+			this.phantomState=clone(this.state);
+			for(let j=0;j<this.phantomState.bulletsList.length;j++){
+				this.phantomState.bulletsList[j].pos=new Vector(this.phantomState.bulletsList[j].pos);
+			}
+			for(let j=0;j<this.phantomState.playersList.length;j++){
+				this.phantomState.playersList[j].pos=new Vector(this.phantomState.playersList[j].pos);
+			}
+		}
+		for(let j=0;j<this.phantomState.bulletsList.length;j++){
+			this.phantomState.bulletsList[j].deadTime++;
+		}
 		for(let i=0;i<state.bulletsList.length;i++){
-			let toSet=new Vector(state.bulletsList[i].velo);
-			toSet.sclVec(amount);
-			toSet.addVec(state.bulletsList[i].pos);
-			state.bulletsList[i].pos=toSet;
+			let matched=null;
+			for(let j=0;j<this.phantomState.bulletsList.length;j++){
+				if(this.phantomState.bulletsList[j].uid==state.bulletsList[i].uid){
+					matched=this.phantomState.bulletsList[j];
+					matched.deadTime=0;
+					break;
+				}
+			}
+			if(matched==null){
+				matched=clone(state.bulletsList[i]);
+				matched.deadTime=0;
+				matched.pos=new Vector(matched.pos);
+				let reverse=new Vector(matched.velo);
+				reverse.sclVec(3);
+				matched.pos.subVec(reverse);
+				this.phantomState.bulletsList.push(matched);
+			}
+			let movement=new Vector(state.bulletsList[i].pos);
+			movement.subVec(matched.pos);
+			matched.animation=movement;
+			matched.ang=state.bulletsList[i].ang;
+		}
+		for(let j=this.phantomState.bulletsList.length-1;j>=0;j--){
+			if(this.phantomState.bulletsList[j].deadTime>1){
+				this.phantomState.bulletsList.splice(j,1);
+			}
+		}
+
+		for(let j=0;j<this.phantomState.playersList.length;j++){
+			this.phantomState.playersList[j].deadTime++;
 		}
 		for(let i=0;i<state.playersList.length;i++){
-			let toSet=new Vector(state.playersList[i].velo);
-			toSet.sclVec(amount);
-			toSet.addVec(state.playersList[i].pos);
-			state.playersList[i].pos=toSet;
+			let matched=null;
+			for(let j=0;j<this.phantomState.playersList.length;j++){
+				if(this.phantomState.playersList[j].uid==state.playersList[i].uid){
+					matched=this.phantomState.playersList[j];
+					matched.deadTime=0;
+					break;
+				}
+			}
+			if(matched==null){
+				matched=clone(state.playersList[i]);
+				matched.deadTime=0;
+				matched.pos=new Vector(matched.pos);
+				let reverse=new Vector(matched.velo);
+				reverse.sclVec(3);
+				matched.pos.subVec(reverse);
+				this.phantomState.playersList.push(matched);
+			}
+			let movement=new Vector(state.playersList[i].pos);
+			movement.subVec(matched.pos);
+			matched.animation=movement;
+			matched.health=state.playersList[i].health;
+			matched.rot=state.playersList[i].rot;
+			matched.transparent=state.playersList[i].transparent;
+		}
+		for(let j=this.phantomState.playersList.length-1;j>=0;j--){
+			if(this.phantomState.playersList[j].deadTime>1){
+				this.phantomState.playersList.splice(j,1);
+			}
+		}
+	}
+	predict(amount){
+		for(let i=0;i<this.phantomState.bulletsList.length;i++){
+			let toMove=new Vector(this.phantomState.bulletsList[i].animation);
+			toMove.sclVec(amount);
+			this.phantomState.bulletsList[i].pos.addVec(toMove);
+		}
+		for(let i=0;i<this.phantomState.playersList.length;i++){
+			let toMove=new Vector(this.phantomState.playersList[i].animation);
+			toMove.sclVec(amount);
+			this.phantomState.playersList[i].pos.addVec(toMove);
 		}
 	}
 
-	setFollow(player){
-		this.following=player;
+	setFollow(playerUid){
+		for(let j=0;j<this.phantomState.playersList.length;j++){
+			if(this.phantomState.playersList[j].uid==playerUid){
+				this.following=this.phantomState.playersList[j];
+				break;
+			}
+		}
 	}
 
 	displayHollow(){
@@ -48,8 +132,9 @@ class Display{
 		this.cam.pos=new Vector(2.5,1);
 		this.displayMap(new Vector(200,200),5);
 	}
-	display(gameState,settings,anim){
-		//this.predict(gameState,anim);
+	display(settings,anim){
+		let gameState=this.phantomState;
+		this.predict(anim);
 		this.calcCam();
 		this.displayMap(settings.size,settings.chunkSize);
 		if(this.following==null){

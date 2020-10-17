@@ -51,20 +51,29 @@ setInterval(()=>{
 
 var displaying=true;
 var last;
+var totalElapsed=0;
+function primeAnimation(state){
+	gameDisplay.newState(state);
+	totalElapsed=0;
+}
 function animation(timestamp) {
 	if(last===undefined){
 		last=timestamp;
 	}
 	let elapsed=timestamp-last;
-	let runSpeed=1000/30;
+	let runSpeed=1000/10;
 	let animAmount=elapsed/runSpeed;
 	last=timestamp;
+	totalElapsed+=animAmount;
+	if(totalElapsed>1){
+		animAmount=0;
+	}
 
 	if(state!=null&&settings!=null){
 		if(state.playerUid!=null){
-			gameDisplay.setFollow(getPlayerByUid(state.playerUid));
+			gameDisplay.setFollow(state.playerUid);
 		}
-		gameDisplay.display(state,settings,animAmount);
+		gameDisplay.display(settings,animAmount);
 	}else{
 		gameDisplay.displayHollow();
 	}
@@ -119,6 +128,7 @@ socket.on('state', (data) => {
 	}
 	parseStateUpdate(strArr[2]);
 	state.playerUid=+strArr[0];
+	primeAnimation(state);
     //state=data;
 });
 var stateString="";//for debugging
