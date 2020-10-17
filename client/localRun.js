@@ -48,7 +48,9 @@ setInterval(()=>{
 		aim.addVec(gameDisplay.following.velo);
 		let req;
 		if(control.touchMode){
-			req=new ControlRequest(aim,aim,control.mouseDown);
+			if(control.mouseDown){
+				req=new ControlRequest(aim,aim,control.mouseDown);
+			}
 		}else{
 			req=new ControlRequest(move,aim,control.mouseDown);
 		}
