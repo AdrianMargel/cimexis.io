@@ -102,6 +102,7 @@ io-stat-select{
 }
 #mainTitle{
 	transition: opacity 1s;
+	transition: top 0.5s, font-size 0.5s;
 }
 
 .scoreboard{
@@ -352,6 +353,7 @@ io-stat-select{
 	padding-top: 150px;
 	min-height: 600px;
 	transition: opacity 1s;
+	transition: padding-top 0.5s;
 }
 .spawnDialog .inner{
 	border-radius: 10px;
@@ -587,6 +589,61 @@ io-dropdown{
 	border-radius: 6px;
 }
 
+@media only screen and (max-height: 700px) {
+	#mainTitle{
+		font-size: 50px;
+		top: 15px;
+	}
+	.spawnDialog{
+		position: absolute;
+		top: 30px;
+		padding-top: 0;
+	}
+	body{
+		min-height: 600px;
+		overflow: auto;
+	}
+}
+@media only screen and (max-width: 700px) {
+	#mainTitle{
+		font-size: 50px;
+		top: 15px;
+	}
+	.spawnDialog{
+		position: absolute;
+		top: 30px;
+		padding-top: 0;
+	}
+	body{
+		min-height: 900px;
+		overflow: auto;
+	}
+
+	.spawnDialog{
+	    height: 900px;
+	}
+	.spawnDialog .inner .body{
+		flex-direction: column;
+		align-items: center;
+		padding-top: 0;
+	}
+	.spawnDialog .inner{
+	    height: auto;
+	    padding-bottom: 40px;
+	}
+	.spawnDialog .inner .body .inputs{
+		flex-direction: column;
+	}
+	.spawnDialog .inner .body .weaponSelector{
+		padding: 0;
+	}
+	.spawnDialog .inner .body .stats{
+		padding: 0;
+	}
+	.spawnDialog .inner .body .inputs .colorPicker{
+		margin-top: 10px;
+	}
+}
 
 /*
 https://fonts.google.com/specimen/Nunito
