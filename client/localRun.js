@@ -111,19 +111,35 @@ function spawnIn(){
 	let dialog=getElm("io-spawn",document.body);
 	if(dialog){
 		let toSpawn=dialog.getPlayer(new Settings);
-		console.log({username: toSpawn.username,color:toSpawn.color,stats: toSpawn.stats});
+		//console.log({username: toSpawn.username,color:toSpawn.color,stats: toSpawn.stats});
     	socket.emit("spawn",{username: toSpawn.username,color:"#"+toSpawn.color,stats: toSpawn.stats});
     	dialog.classList.add("closed");
     	getElm("#mainTitle",document.body).classList.add("closed");
     	getElm("#canvasContainer",document.body).classList.remove("blur");
+    	setTimeout(()=>{setFullHide(true)}, 1000);
+	}
+}
+function setFullHide(toggle){
+	let dialog=getElm("io-spawn",document.body);
+	if(dialog){
+		if(toggle){
+			dialog.style.display="none";
+	    	getElm("#mainTitle",document.body).style.display="none";
+		}else{
+			dialog.style.display="";
+	    	getElm("#mainTitle",document.body).style.display="";
+		}
 	}
 }
 function reset(){
 	let dialog=getElm("io-spawn",document.body);
+    setFullHide(false);
 	if(dialog){
-		dialog.classList.remove("closed");
-    	getElm("#mainTitle",document.body).classList.remove("closed");
-    	getElm("#canvasContainer",document.body).classList.add("blur");
+    	setTimeout(()=>{
+			dialog.classList.remove("closed");
+	    	getElm("#mainTitle",document.body).classList.remove("closed");
+	    	getElm("#canvasContainer",document.body).classList.add("blur");
+		}, 10);
 	}
 }
 
