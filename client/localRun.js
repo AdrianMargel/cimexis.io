@@ -13,7 +13,7 @@ var previewDisplay=new PreviewDisplay();
 
 setInterval(()=>{
 	let dialog=getElm("io-spawn",document.body);
-	if(dialog){
+	if(dialog.style.display!="none"){
 		let previewP=dialog.getPlayer(new Settings);
 		previewDisplay.displayPreview(previewP);
 	}
@@ -109,13 +109,23 @@ function spawnIn(){
 		let toSpawn=dialog.getPlayer(new Settings);
 		console.log({username: toSpawn.username,color:toSpawn.color,stats: toSpawn.stats});
     	socket.emit("spawn",{username: toSpawn.username,color:"#"+toSpawn.color,stats: toSpawn.stats});
-    	dialog.remove();
-    	getElm("#mainTitle",document.body).remove();
+    	dialog.style.display="none";
+    	getElm("#mainTitle",document.body).style.display="none";
+	}
+}
+function reset(){
+	let dialog=getElm("io-spawn",document.body);
+	if(dialog){
+		dialog.style.display="";
+    	getElm("#mainTitle",document.body).style.display="";
 	}
 }
 
 socket.on('settings', (data) => {
 	settings=data;
+});
+socket.on('killed', (data) => {
+	reset();
 });
 socket.on('state', (data) => {
 	//console.log(byteCount(JSON.stringify(data)));

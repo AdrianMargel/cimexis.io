@@ -7,6 +7,21 @@ class StatGroup{
 			this.dataList[i]=D(this.dataList[i]);
 			this.dataList[i].sub("general",this.dataSub);
 		}
+		this.usedD=D(0);
+	}
+	calcUsed(){
+		let total=0;
+		for(let i=0;i<this.dataList.length;i++){
+			total+=this.dataList[i].d.val;
+		}
+		this.usedD.d=Math.min(Math.ceil(total),this.maxTotal);
+		this.usedD.update("general");
+	}
+	getUsedD(){
+		return this.usedD;
+	}
+	getMax(){
+		return this.maxTotal;
 	}
 	update(exclude){
 		let total=0;
@@ -24,6 +39,7 @@ class StatGroup{
 				}
 			}
 		}
+		this.calcUsed();
 	}
 }
 class StatData{

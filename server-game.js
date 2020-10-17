@@ -1,5 +1,3 @@
-
-
 require('./util.js')();
 require('./weapons.js')();
 require('./simulator.js')();
@@ -29,7 +27,8 @@ function getSettings(){
 }
 
 class User{
-	constructor(id){
+	constructor(id,killFunc){
+		this.killFunc=killFunc;
 		this.id=id;
 		this.player=null;
 		this.queue=null;
@@ -40,8 +39,8 @@ class User{
 	}
 }
 
-function registerUser(id){
-	users.push(new User(id));
+function registerUser(id,killFunc){
+	users.push(new User(id,killFunc));
 }
 function disconnectUser(id){
 	let user=getUser(id);
@@ -59,6 +58,9 @@ function clearDead(){
 	for(let i=users.length-1;i>=0;i--){
 		if(users[i].player!=null&&users[i].player.isDead()){
 			users[i].player=null;
+			if(users[i].killFunc!=null){
+				users[i].killFunc();
+			}
 		}
 	}
 }

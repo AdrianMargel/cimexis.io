@@ -80,11 +80,14 @@ function sendStateUpdate(){
 		}
 	}
 }
+function sendKillSignal(userId){
+	io.to(userId).emit('killed');
+}
 
 io.on('connection', socket => {
 	let userId = socket.id;
 	console.log("connected");
-	registerUser(userId);
+	registerUser(userId,()=>{sendKillSignal(userId)});
 
 	io.to(userId).emit('settings', getSettings());
 
@@ -112,7 +115,6 @@ io.on('connection', socket => {
 });
 
 server.listen(PORT);
-
 
 // const Server = require('socket.io');
 // const io = new Server();

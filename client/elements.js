@@ -37,7 +37,7 @@ class SpawnDialog extends HTMLElement{
 		new StatData("accuracy",0)
 		];
 
-		this.statHolder=new StatGroup(stats,400);
+		this.statHolder=D(new StatGroup(stats,400));
 
 	}
 	connectedCallback(){
@@ -220,35 +220,38 @@ class StatInput extends HTMLElement{
 }
 customElements.define('io-stat-input', StatInput);
 
-
-
 class StatSelList extends HTMLElement{
 	constructor(){
 		super();
+		this.statSub=()=>{this.update()};
 	}
 	init(statGroupD){
 		this.statGroup=statGroupD;
-
+		this.used=statGroupD.d.getUsedD();
+		this.used.sub("general",this.statSub);
 	}
 	connectedCallback(){
 		this.classList.add("stats");
-		let subTitle=newElm("P","subtitle");
-		subTitle.innerHTML="Stats";
-		//appElm(subTitle,this);
+		this.points=newElm("P","points fade");
+		appElm(this.points,this);
 		let inner=newElm("DIV","scroll");
 		appElm(inner,this);
-		for(let i=0;i<this.statGroup.dataList.length;i++){
+		for(let i=0;i<this.statGroup.d.dataList.length;i++){
 			let toAddElm=new StatSelect();
-			toAddElm.init(this.statGroup.dataList[i]);
+			toAddElm.init(this.statGroup.d.dataList[i]);
 			appElm(toAddElm,inner);
 		}
+		this.update();
   	}
   	getStats(){
   		let stat=new Stats();
-		for(let i=0;i<this.statGroup.dataList.length;i++){
-			stat[this.statGroup.dataList[i].d.name]=this.statGroup.dataList[i].d.val;
+		for(let i=0;i<this.statGroup.d.dataList.length;i++){
+			stat[this.statGroup.d.dataList[i].d.name]=this.statGroup.d.dataList[i].d.val;
 		}
 		return stat;
+  	}
+  	update(){
+  		this.points.innerHTML=this.used.d+"/"+this.statGroup.d.getMax();
   	}
 }
 customElements.define('io-stat-sel-list', StatSelList);
