@@ -15,6 +15,7 @@ a:hover{
 }
 body{
 	background-color: #EFE9D7;
+	overflow: hidden;
 }
 button{
 	background-color: #6ED393;
@@ -79,6 +80,26 @@ io-stat-select{
 .subtitle{
 	font-weight: 700;
 	font-size: 30px;
+}
+
+.blur{
+	transition: filter 3s;
+	filter: blur(2px);
+}
+.spawnDialog.closed{
+	transition: all 1s;
+	opacity: 0;
+	pointer-events: none;
+}
+#mainTitle.closed{
+	transition: all 1s;
+	opacity: 0;
+	position: absolute;
+	top: 500px;
+	pointer-events: none;
+}
+#mainTitle{
+	transition: opacity 1s;
 }
 
 .scoreboard{
@@ -328,6 +349,7 @@ io-stat-select{
 	z-index: 10;
 	padding-top: 150px;
 	min-height: 600px;
+	transition: opacity 1s;
 }
 .spawnDialog .inner{
 	border-radius: 10px;

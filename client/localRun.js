@@ -113,15 +113,17 @@ function spawnIn(){
 		let toSpawn=dialog.getPlayer(new Settings);
 		console.log({username: toSpawn.username,color:toSpawn.color,stats: toSpawn.stats});
     	socket.emit("spawn",{username: toSpawn.username,color:"#"+toSpawn.color,stats: toSpawn.stats});
-    	dialog.style.display="none";
-    	getElm("#mainTitle",document.body).style.display="none";
+    	dialog.classList.add("closed");
+    	getElm("#mainTitle",document.body).classList.add("closed");
+    	getElm("#canvasContainer",document.body).classList.remove("blur");
 	}
 }
 function reset(){
 	let dialog=getElm("io-spawn",document.body);
 	if(dialog){
-		dialog.style.display="";
-    	getElm("#mainTitle",document.body).style.display="";
+		dialog.classList.remove("closed");
+    	getElm("#mainTitle",document.body).classList.remove("closed");
+    	getElm("#canvasContainer",document.body).classList.add("blur");
 	}
 }
 
