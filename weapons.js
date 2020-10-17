@@ -1,3 +1,5 @@
+var veloStacking=true;
+
 class Gun{
 	constructor(){
 		this.name="gun";
@@ -25,6 +27,7 @@ class Gun{
 
 		ang+=(Math.random()*2-1)*accuracy;
 		velo=new Vector(ang,mag,true);
+		if(veloStacking){velo.addVec(shooter.velo);}
 
 		this.shootBullet(bulletsList, shooter,pos,velo, range,bulletSize,damage,knockback);
 	}
@@ -103,6 +106,7 @@ class ShotGun extends Gun{
 			let mag2=mag*(1-Math.random()*0.4);
 			let bSize=bulletSize*(1-Math.random()*0.2);
 			velo=new Vector(ang2,mag2,true);
+			if(veloStacking){velo.addVec(shooter.velo);}
 
 			this.shootBullet(bulletsList, shooter,pos,velo, range,bSize,damage,knockback);
 		}
@@ -216,6 +220,7 @@ class Charger extends Gun{
 
 		ang+=(Math.random()*2-1)*accuracy;
 		velo=new Vector(ang,mag,true);
+		if(veloStacking){velo.addVec(shooter.velo);}
 
 		this.shootBullet(bulletsList, shooter,pos,velo, range,bulletSize,damage,knockback);
 	}
@@ -327,6 +332,7 @@ class SplitShot extends Gun{
 			shooter.velo.addVec(kick);
 			ang+=(Math.random()*2-1)*accuracy;
 			velo=new Vector(ang,mag,true);
+			if(veloStacking){velo.addVec(shooter.velo);}
 			this.shootBullet(bulletsList, shooter,pos,velo, range,bulletSize,damage,knockback);
 		}
 		{
@@ -341,6 +347,7 @@ class SplitShot extends Gun{
 			shooter.velo.addVec(kick);
 			ang+=(Math.random()*2-1)*accuracy;
 			velo=new Vector(ang,mag,true);
+			if(veloStacking){velo.addVec(shooter.velo);}
 			this.shootBullet(bulletsList, shooter,pos,velo, range,bulletSize,damage,knockback);
 		}
 	}
@@ -380,6 +387,7 @@ class Spinner extends Gun{
 			pos.addVec(new Vector(ang,shooter.size/2,true));
 			ang+=(Math.random()*2-1)*accuracy;
 			velo=new Vector(ang,mag,true);
+			if(veloStacking){velo.addVec(shooter.velo);}
 			this.shootBullet(bulletsList, shooter,pos,velo, range,bulletSize,damage,knockback);
 		}
 		{
@@ -390,6 +398,7 @@ class Spinner extends Gun{
 			pos.addVec(new Vector(ang,shooter.size/2,true));
 			ang+=(Math.random()*2-1)*accuracy;
 			velo=new Vector(ang,mag,true);
+			if(veloStacking){velo.addVec(shooter.velo);}
 			this.shootBullet(bulletsList, shooter,pos,velo, range,bulletSize,damage,knockback);
 		}
 		{
@@ -400,6 +409,7 @@ class Spinner extends Gun{
 			pos.addVec(new Vector(ang,shooter.size/2,true));
 			ang+=(Math.random()*2-1)*accuracy;
 			velo=new Vector(ang,mag,true);
+			if(veloStacking){velo.addVec(shooter.velo);}
 			this.shootBullet(bulletsList, shooter,pos,velo, range,bulletSize,damage,knockback);
 		}
 		{
@@ -410,6 +420,7 @@ class Spinner extends Gun{
 			pos.addVec(new Vector(ang,shooter.size/2,true));
 			ang+=(Math.random()*2-1)*accuracy;
 			velo=new Vector(ang,mag,true);
+			if(veloStacking){velo.addVec(shooter.velo);}
 			this.shootBullet(bulletsList, shooter,pos,velo, range,bulletSize,damage,knockback);
 		}
 	}
