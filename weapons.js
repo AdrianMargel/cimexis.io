@@ -247,12 +247,13 @@ class MineLayer extends Gun{
 	}
 	modifyStats(shooter){
 		shooter.bulletSpeed=0;
-		shooter.range*=8;
+		shooter.range*=10;
 		shooter.damage*=0.5;
 		shooter.kickback*=0.5;
+		shooter.bulletSize*=1.5;
 	}
 	shootBullet(bulletsList, shooter,pos,velo, range,bulletSize,damage,knockback){
-		bulletsList.push(new Mine(shooter,pos,velo, range,bulletSize,damage,knockback));
+		bulletsList.push(new Mine(shooter,pos,new Vector(), range,bulletSize,damage,knockback));
 	}
 	clone(){
 		return new MineLayer();

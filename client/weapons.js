@@ -247,7 +247,7 @@ class MineLayer extends Gun{
 		shooter.kickback*=0.5;
 	}
 	shootBullet(bulletsList, shooter,pos,velo, range,bulletSize,damage,knockback){
-		bulletsList.push(new Mine(shooter,pos,velo, range,bulletSize,damage,knockback));
+		bulletsList.push(new Mine(shooter,pos,new Vector(), range,bulletSize,damage,knockback));
 	}
 	clone(){
 		return new MineLayer();
