@@ -301,7 +301,7 @@ class Stats{
 
 	getReload(){
 		let val=this.reload/100;
-		let min=0.01;
+		let min=0.05;
 		let max=0.25;
 		return val*(max-min)+min;
 	}

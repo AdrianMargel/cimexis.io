@@ -34,6 +34,11 @@ class Gun{
 	clone(){
 		return new Gun();
 	}
+	simpleClone(){
+		let clone={};
+		clone.name=this.name;
+		return clone;
+	}
 }
 
 class Sniper extends Gun{
@@ -63,7 +68,7 @@ class ShotGun extends Gun{
 	}
 	modifyStats(shooter){
 		//(keep in mind that it is harder to aim as accuracy increased)
-		shooter.accuracy=(shooter.accuracy+0.01)*3;
+		shooter.accuracy=(shooter.accuracy+0.02)*3;
 		shooter.reload*=0.5;
 		shooter.damage*=0.8;
 		shooter.bulletSize=Math.max(shooter.bulletSize*0.75,0.6);
@@ -114,7 +119,7 @@ class MiniGun extends Gun{
 	}
 	modifyStats(shooter){
 		//(keep in mind that it is harder to aim as accuracy increased)
-		shooter.accuracy=(shooter.accuracy+0.01)*2;
+		shooter.accuracy=(shooter.accuracy+0.02)*2;
 		shooter.reload*=3;
 		shooter.bulletSize=Math.max(shooter.bulletSize*0.75,0.6);
 		shooter.damage*=0.5;
@@ -146,22 +151,30 @@ class Stealth extends Gun{
 	constructor(){
 		super();
 		this.name="stealth";
-		this.stealthBuild=0;
+		this.stored=0;
 	}
 	move(shooter){
 		if(shooter.velo.getMag()<0.1){
-			if(this.stealthBuild>20){
+			if(this.stored>20){
 				shooter.visible=false;
 			}else{
-				this.stealthBuild++;
+				this.stored++;
 			}
 		}else{
 			shooter.visible=true;
-			this.stealthBuild=0;
+			this.stored=0;
 		}
 	}
 	clone(){
 		return new Stealth();
+	}
+	simpleClone(){
+		let rounding=4;
+		let clone={};
+		clone.name=this.name;
+		clone.stored=this.stored;
+		clone.stored=+clone.stored.toFixed(rounding);
+		return clone;
 	}
 }
 
@@ -212,6 +225,14 @@ class Charger extends Gun{
 	clone(){
 		return new Charger();
 	}
+	simpleClone(){
+		let rounding=4;
+		let clone={};
+		clone.name=this.name;
+		clone.stored=this.stored;
+		clone.stored=+clone.stored.toFixed(rounding);
+		return clone;
+	}
 }
 
 class MineLayer extends Gun{
@@ -239,12 +260,13 @@ class Puncher extends Gun{
 		this.name="puncher";
 	}
 	modifyStats(shooter){
-		shooter.range*=0.2;
+		shooter.range*=0.75;
 		shooter.knockback*=2;
-		shooter.reload*=2;
+		shooter.reload*=0.8;
 		shooter.kickback*=0.1;
 		shooter.bulletSpeed*=0.8;
 		shooter.bulletSize*=1.5;
+		shooter.accuracy=(shooter.accuracy+0.01)*1.5;
 	}
 	shootBullet(bulletsList, shooter,pos,velo, range,bulletSize,damage,knockback){
 		bulletsList.push(new Fist(shooter,pos,velo, range,bulletSize,damage,knockback));
@@ -394,6 +416,16 @@ class Spinner extends Gun{
 	clone(){
 		return new Spinner();
 	}
+	simpleClone(){
+		let rounding=4;
+		let clone={};
+		clone.name=this.name;
+		clone.rot1=this.rot1;
+		clone.rot1=+clone.rot1.toFixed(rounding);
+		clone.rot2=this.rot2;
+		clone.rot2=+clone.rot2.toFixed(rounding);
+		return clone;
+	}
 }
 
 class Claw extends Gun{
@@ -414,6 +446,14 @@ class Claw extends Gun{
 	}
 	clone(){
 		return new Claw();
+	}
+	simpleClone(){
+		let rounding=4;
+		let clone={};
+		clone.name=this.name;
+		clone.rot=this.rot;
+		clone.rot=+clone.rot.toFixed(rounding);
+		return clone;
 	}
 }
 
@@ -436,6 +476,14 @@ class Wall extends Gun{
 	}
 	clone(){
 		return new Wall();
+	}
+	simpleClone(){
+		let rounding=4;
+		let clone={};
+		clone.name=this.name;
+		clone.rot=this.rot;
+		clone.rot=+clone.rot.toFixed(rounding);
+		return clone;
 	}
 }
 class Healer extends Gun{
@@ -476,6 +524,18 @@ class Unarmed extends Gun{
 	clone(){
 		return new Unarmed();
 	}
+	simpleClone(){
+		let rounding=4;
+		let clone={};
+		clone.name=this.name;
+		clone.timeUp=this.timeUp;
+		clone.timeUp=+clone.timeUp.toFixed(rounding);
+		clone.time=this.time;
+		clone.time=+clone.time.toFixed(rounding);
+		clone.surrenderSize=this.surrenderSize;
+		clone.surrenderSize=+clone.surrenderSize.toFixed(rounding);
+		return clone;
+	}
 }
 
 var gunList=[
@@ -499,9 +559,11 @@ var gunList=[
 
 class Bullet{
 	constructor(shooter,pos,velo,life,size,damage,knockback){
+		this.uid=assignUid();
 		this.shooter=shooter;
 		this.pos=new Vector(pos);
 		this.velo=new Vector(velo);
+		this.rot=0;
 
 		this.life=life;
 		this.size=size;
@@ -510,8 +572,6 @@ class Bullet{
 
 		this.colorDark=shooter.colorDark;
 		this.colorLight=shooter.colorLight;
-
-		this.ang=0;
 
 		this.name="bullet";
 	}
@@ -581,39 +641,60 @@ class Bullet{
 	isDead(){
 		return this.life<=0;
 	}
+	simpleClone(){
+		let rounding=4;
+		let clone={};
+		clone.uid=this.uid;
+		clone.shooterUid=this.shooter.uid;
+		clone.colorDark=this.colorDark;
+		clone.colorLight=this.colorLight
+
+		clone.pos=new Vector(this.pos);
+		clone.pos.x=+clone.pos.x.toFixed(rounding);
+		clone.pos.y=+clone.pos.y.toFixed(rounding);
+		clone.velo=new Vector(this.velo);
+		clone.velo.x=+clone.velo.x.toFixed(rounding);
+		clone.velo.y=+clone.velo.y.toFixed(rounding);
+		clone.rot=this.rot;
+		clone.rot=+clone.rot.toFixed(rounding);
+		
+		clone.size=this.size;
+		clone.size=+clone.size.toFixed(rounding);
+		clone.name=this.name;
+		return clone;
+	}
 }
 class Mine extends Bullet{
 	constructor(shooter,pos,velo,life,size,damage,knockback){
 		super(shooter,pos,velo,life,size,damage,knockback);
 		this.name="mine";
-		this.ang=Math.random()*Math.PI*2;
+		this.rot=Math.random()*Math.PI*2;
 	}
 	move(time,mapSize){
 		super.move(time,mapSize);
-		this.ang-=0.01;
+		this.rot-=0.01;
 	}
 }
 class Fist extends Bullet{
 	constructor(shooter,pos,velo,life,size,damage,knockback){
 		super(shooter,pos,velo,life,size,damage,knockback);
 		this.name="fist";
-		this.ang=this.velo.getAng();
+		this.rot=this.velo.getAng();
 	}
 
 	move(time,mapSize){
 		super.move(time,mapSize);
-		this.ang=this.velo.getAng();
+		this.rot=this.velo.getAng();
 	}
 }
 class HealOrb extends Bullet{
 	constructor(shooter,pos,velo,life,size,damage,knockback){
 		super(shooter,pos,velo,life,size,damage,knockback);
 		this.name="heal";
-		this.ang=Math.random()*Math.PI*2;
+		this.rot=Math.random()*Math.PI*2;
 	}
 	move(time,mapSize){
 		super.move(time,mapSize);
-		this.ang-=0.04;
+		this.rot-=0.04;
 	}
-
 }

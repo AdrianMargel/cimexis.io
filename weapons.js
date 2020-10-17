@@ -68,7 +68,7 @@ class ShotGun extends Gun{
 	}
 	modifyStats(shooter){
 		//(keep in mind that it is harder to aim as accuracy increased)
-		shooter.accuracy=(shooter.accuracy+0.01)*3;
+		shooter.accuracy=(shooter.accuracy+0.02)*3;
 		shooter.reload*=0.5;
 		shooter.damage*=0.8;
 		shooter.bulletSize=Math.max(shooter.bulletSize*0.75,0.6);
@@ -119,7 +119,7 @@ class MiniGun extends Gun{
 	}
 	modifyStats(shooter){
 		//(keep in mind that it is harder to aim as accuracy increased)
-		shooter.accuracy=(shooter.accuracy+0.01)*2;
+		shooter.accuracy=(shooter.accuracy+0.02)*2;
 		shooter.reload*=3;
 		shooter.bulletSize=Math.max(shooter.bulletSize*0.75,0.6);
 		shooter.damage*=0.5;
@@ -260,12 +260,13 @@ class Puncher extends Gun{
 		this.name="puncher";
 	}
 	modifyStats(shooter){
-		shooter.range*=0.2;
+		shooter.range*=0.75;
 		shooter.knockback*=2;
-		shooter.reload*=2;
+		shooter.reload*=0.8;
 		shooter.kickback*=0.1;
 		shooter.bulletSpeed*=0.8;
 		shooter.bulletSize*=1.5;
+		shooter.accuracy=(shooter.accuracy+0.01)*1.5;
 	}
 	shootBullet(bulletsList, shooter,pos,velo, range,bulletSize,damage,knockback){
 		bulletsList.push(new Fist(shooter,pos,velo, range,bulletSize,damage,knockback));

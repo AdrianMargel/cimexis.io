@@ -63,6 +63,7 @@ class Display{
 			let movement=new Vector(state.bulletsList[i].pos);
 			movement.subVec(matched.pos);
 			matched.animation=movement;
+			matched.velo=new Vector(state.bulletsList[i].velo);
 		}
 		for(let j=this.phantomState.bulletsList.length-1;j>=0;j--){
 			if(this.phantomState.bulletsList[j].deadTime>1){
@@ -94,6 +95,7 @@ class Display{
 			let movement=new Vector(state.playersList[i].pos);
 			movement.subVec(matched.pos);
 			matched.animation=movement;
+			matched.velo=new Vector(state.playersList[i].velo);
 			matched.health=state.playersList[i].health;
 			matched.rotAnim=nrm2Ang(state.playersList[i].rot-matched.rot);
 			matched.transparent=state.playersList[i].transparent;
