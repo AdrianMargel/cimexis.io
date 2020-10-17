@@ -290,7 +290,7 @@ class Stats{
 			this.kickback+
 			this.accuracy;
 
-		let maxPoints=300;
+		let maxPoints=400;
 		if(total>maxPoints){
 			let scaling=maxPoints/total;
 			this.health*=scaling;

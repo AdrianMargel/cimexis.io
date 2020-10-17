@@ -37,7 +37,7 @@ class SpawnDialog extends HTMLElement{
 		new StatData("accuracy",0)
 		];
 
-		this.statHolder=new StatGroup(stats,300);
+		this.statHolder=new StatGroup(stats,400);
 
 	}
 	connectedCallback(){
@@ -120,9 +120,12 @@ class StatSelect extends HTMLElement{
 		this.addEventListener("mousedown",this.mDownFunc);
 		let label=newElm("P");
 		label.innerHTML=this.stat.d.name;
-		this.fade=newElm("SPAN","fade");
-		appElm(label,this);
-		appElm(this.fade,label);
+		let top=newElm("DIV","top");
+		this.statIn=new StatInput();
+		this.statIn.init(this.stat);
+		appElm(label,top);
+		appElm(this.statIn,top);
+		appElm(top,this);
 		this.bar=newElm("DIV","bar");
 		this.barInner=newElm("DIV");
 		appElm(this.barInner,this.bar);
@@ -134,9 +137,11 @@ class StatSelect extends HTMLElement{
   	}
 
   	mDown(e){
-  		this.mMove(e);
-		document.addEventListener("mousemove",this.mMoveFunc);
-		document.addEventListener("mouseup",this.mUpFunc);
+		if(!isDecendant(e.target,this.statIn)){
+  			this.mMove(e);
+			document.addEventListener("mousemove",this.mMoveFunc);
+			document.addEventListener("mouseup",this.mUpFunc);
+		}
   	}
   	mUp(){
   		document.removeEventListener("mouseup",this.mUpFunc);
@@ -156,7 +161,6 @@ class StatSelect extends HTMLElement{
 
   	}
   	update(){
-  		this.fade.innerText=Math.floor(this.stat.d.val);
   		this.barInner.style.width=this.stat.d.val+"%";
   	}
   	setVal(val){
@@ -165,6 +169,58 @@ class StatSelect extends HTMLElement{
   	}
 }
 customElements.define('io-stat-select', StatSelect);
+
+class StatInput extends HTMLElement{
+	constructor(){
+		super();
+		this.statSub=()=>{this.update()};
+		this.deselectFunc=()=>{this.deselect()};
+		this.keyFunc=(e)=>{this.keydown(e)};
+		this.lastVal=0;
+	}
+	init(statD){
+		this.stat=statD;
+		statD.sub("general",this.statSub);
+	}
+	connectedCallback(){
+		this.in=newElm("INPUT","fade smallInput");
+		this.in.maxLength=3;
+		this.in.addEventListener("blur", this.deselectFunc);
+		this.in.addEventListener("keydown", this.keyFunc);
+		appElm(this.in,this);
+		this.update();
+  	}
+  	keydown(e){
+  		if(e.key=="Enter"){
+  			this.in.blur();
+  		}
+  		if(e.key=="Escape"){
+  			this.in.value=this.lastVal;
+  			this.in.blur();
+  		}
+  	}
+  	deselect(){
+  		let toSet=+this.in.value;
+  		if(!isNaN(toSet)){
+  			toSet=Math.min(Math.max(toSet,0),100);
+  			this.setVal(toSet);
+  		}else{
+  			this.update();
+  		}
+  	}
+  	update(){
+  		let toSet=Math.ceil(this.stat.d.val);
+  		this.in.value=toSet;
+  		this.lastVal=toSet;
+  	}
+  	setVal(val){
+  		this.stat.d.val=val;
+  		this.stat.update("general");
+  	}
+}
+customElements.define('io-stat-input', StatInput);
+
+
 
 class StatSelList extends HTMLElement{
 	constructor(){
