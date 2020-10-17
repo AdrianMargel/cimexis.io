@@ -548,7 +548,7 @@ class Game{
 			}
 		}
 		for(let i=this.state.bulletsList.length-1;i>=0;i--){
-			if(this.state.bulletsList[i].isDead()){
+			if(this.state.bulletsList[i].isDead()||this.state.bulletsList[i].shooter.isDead()){
 				this.state.bulletsList.splice(i,1);
 			}
 		}
