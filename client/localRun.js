@@ -46,7 +46,12 @@ setInterval(()=>{
 		aim.nrmVec(100);
 		aim.addVec(gameDisplay.following.pos);
 		aim.addVec(gameDisplay.following.velo);
-		let req=new ControlRequest(move,aim,control.mouseDown);
+		let req;
+		if(control.touchMode){
+			req=new ControlRequest(aim,aim,control.mouseDown);
+		}else{
+			req=new ControlRequest(move,aim,control.mouseDown);
+		}
 		let reqStr=req.getString();
 		byteEstimateUp+=byteCount(reqStr);
 		socket.emit("control",reqStr);
