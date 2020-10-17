@@ -192,7 +192,7 @@ function reset(){
 			dialog.classList.remove("closed");
 	    	getElm("#mainTitle",document.body).classList.remove("closed");
 	    	getElm("#canvasContainer",document.body).classList.add("blur");
-		}, 10);
+		}, 100);
 	}
 }
 
