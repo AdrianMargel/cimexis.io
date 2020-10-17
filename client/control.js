@@ -19,7 +19,7 @@ class Control{
 			this.touchMode=false;
 		}
 		canvas.onmousemove = (e)=>{this.trackMouse(e)};
-		
+
 		canvas.ontouchstart = (e)=>{this.tStart(e)};
 		canvas.ontouchmove = (e)=>{this.tMove(e)};
 		document.body.ontouchend = (e)=>{this.tEnd(e)};
@@ -29,18 +29,27 @@ class Control{
 			this.mousePosReal=new Vector(e.changedTouches[0].clientX,e.changedTouches[0].clientY);
 		}
 		this.mouseDown=true;
-		this.touchMode=true;
+		if(!this.touchMode){
+			openFullScreen();
+			this.touchMode=true;
+		}
 	}
 	tMove(e){
 		if(e.changedTouches.length>0){
 			this.mousePosReal=new Vector(e.changedTouches[0].clientX,e.changedTouches[0].clientY);
 		}
 		this.mouseDown=true;
-		this.touchMode=true;
+		if(!this.touchMode){
+			openFullScreen();
+			this.touchMode=true;
+		}
 	}
 	tEnd(e){
 		this.mouseDown=false;
-		this.touchMode=true;
+		if(!this.touchMode){
+			openFullScreen();
+			this.touchMode=true;
+		}
 	}
 	trackMouse(e){
 		this.mousePosReal=new Vector(e.offsetX,e.offsetY);
