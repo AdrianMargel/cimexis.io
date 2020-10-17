@@ -29,6 +29,7 @@ class Display{
 	}
 
 	newState(state){
+		let rewind=3;
 		this.state=state;
 		if(this.phantomState==null){
 			this.phantomState=clone(this.state);
@@ -56,7 +57,7 @@ class Display{
 				matched.deadTime=0;
 				matched.pos=new Vector(matched.pos);
 				let reverse=new Vector(matched.velo);
-				reverse.sclVec(3);
+				reverse.sclVec(rewind);
 				matched.pos.subVec(reverse);
 				this.phantomState.bulletsList.push(matched);
 			}
@@ -88,7 +89,7 @@ class Display{
 				matched.deadTime=0;
 				matched.pos=new Vector(matched.pos);
 				let reverse=new Vector(matched.velo);
-				reverse.sclVec(3);
+				reverse.sclVec(rewind);
 				matched.pos.subVec(reverse);
 				this.phantomState.playersList.push(matched);
 			}
