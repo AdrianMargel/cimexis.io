@@ -447,7 +447,7 @@ class Claw extends Gun{
 		this.rot=Math.random()*Math.PI;
 	}
 	modifyStats(shooter){
-		shooter.meleeDamage*=4;
+		shooter.meleeDamage*=2;
 		shooter.speed*=1.4;
 	}
 	move(){

@@ -343,8 +343,8 @@ class Stats{
 
 	getMeleeDamage(){
 		let val=this.meleeDamage/100;
-		let min=1;
-		let max=5;
+		let min=0.5;
+		let max=3;
 		return val*(max-min)+min;
 	}
 
