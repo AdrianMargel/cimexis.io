@@ -532,13 +532,11 @@ class Game{
 			this.state.playersList[i].repel(this);
 		}
 		for(let i=0;i<this.state.bulletsList.length;i++){
-			if(this.state.bulletsList[i].velo.getMag()>this.state.bulletsList[i].size){
-				this.state.bulletsList[i].move(0.5,this.settings.size);
-				this.state.bulletsList[i].hit(this);
-				this.state.bulletsList[i].move(0.5,this.settings.size);
-				this.state.bulletsList[i].hit(this);
-			}else{
-				this.state.bulletsList[i].move(1,this.settings.size);
+			let steps=this.state.bulletsList[i].velo.getMag()/this.state.bulletsList[i].size;
+			steps=Math.max(Math.ceil(steps),1);
+			let amount=1/steps;
+			for(let s=0;s<steps;s++){
+				this.state.bulletsList[i].move(amount,this.settings.size);
 				this.state.bulletsList[i].hit(this);
 			}
 		}
