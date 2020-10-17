@@ -42,6 +42,10 @@ setInterval(()=>{
 			move.addVec(gameDisplay.following.pos);
 		}
 		let aim=new Vector(control.getMouse(gameDisplay.cam));
+		aim.subVec(gameDisplay.following.pos);
+		aim.nrmVec(100);
+		aim.addVec(gameDisplay.following.pos);
+		aim.addVec(gameDisplay.following.velo);
 		let req=new ControlRequest(move,aim,control.mouseDown);
 		let reqStr=req.getString();
 		byteEstimateUp+=byteCount(reqStr);
