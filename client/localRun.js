@@ -60,6 +60,39 @@ setInterval(()=>{
 	}
 }, 1000/10);
 
+function toggleFullScreen() {
+  if ((document.fullScreenElement && document.fullScreenElement !== null) ||    
+   (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+    if (document.documentElement.requestFullScreen) {  
+      document.documentElement.requestFullScreen();  
+    } else if (document.documentElement.mozRequestFullScreen) {  
+      document.documentElement.mozRequestFullScreen();  
+    } else if (document.documentElement.webkitRequestFullScreen) {  
+      document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);  
+    }
+    getElm(".fullScreenBtn").style.display="none";
+  } else {  
+    if (document.cancelFullScreen) {  
+      document.cancelFullScreen();  
+    } else if (document.mozCancelFullScreen) {  
+      document.mozCancelFullScreen();  
+    } else if (document.webkitCancelFullScreen) {  
+      document.webkitCancelFullScreen();  
+    }  
+  }
+}
+document.addEventListener('fullscreenchange', changeFullscreen, false);
+document.addEventListener('mozfullscreenchange', changeFullscreen, false);
+document.addEventListener('MSFullscreenChange', changeFullscreen, false);
+document.addEventListener('webkitfullscreenchange', changeFullscreen, false);
+
+function changeFullscreen(){
+	if (!((document.fullScreenElement && document.fullScreenElement !== null) ||    
+   		(!document.mozFullScreen && !document.webkitIsFullScreen))) {
+    	getElm(".fullScreenBtn").style.display="";
+	}
+}
+
 var displaying=true;
 var last;
 var totalElapsed=0;

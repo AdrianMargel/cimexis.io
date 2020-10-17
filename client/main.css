@@ -589,6 +589,10 @@ io-dropdown{
 	border-radius: 6px;
 }
 
+.fullScreenBtn{
+	display: none;
+}
+
 @media only screen and (max-height: 700px) {
 	#mainTitle{
 		font-size: 50px;
@@ -602,6 +606,14 @@ io-dropdown{
 	body{
 		min-height: 600px;
 		overflow: auto;
+	}
+	.fullScreenBtn{
+		z-index: 100;
+		display: block;
+		position: fixed;
+		padding: 10px 10px;
+		bottom: 10px;
+		right: 10px;
 	}
 }
 @media only screen and (max-width: 700px) {
@@ -642,6 +654,14 @@ io-dropdown{
 	}
 	.spawnDialog .inner .body .inputs .colorPicker{
 		margin-top: 10px;
+	}
+	.fullScreenBtn{
+		z-index: 100;
+		display: block;
+		position: fixed;
+		padding: 10px 10px;
+		bottom: 10px;
+		right: 10px;
 	}
 }
 
