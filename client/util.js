@@ -220,3 +220,24 @@ function isHex(h) {
 function clone(target){
 	return JSON.parse(JSON.stringify(target));
 }
+
+function nrmAng(ang){
+  let newAng=ang;
+  while(newAng<0){
+    newAng+=2*Math.PI;
+  }
+  while(newAng>2*Math.PI){
+    newAng-=2*Math.PI;
+  }
+  return newAng;
+}
+function nrm2Ang(ang){
+  let newAng=ang;
+  while(newAng<-Math.PI){
+    newAng+=2*Math.PI;
+  }
+  while(newAng>Math.PI){
+    newAng-=2*Math.PI;
+  }
+  return newAng;
+}

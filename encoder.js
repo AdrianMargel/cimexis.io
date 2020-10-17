@@ -42,6 +42,9 @@ function weaponUpdateBlob(target,owner){
     if(target.time!=null){
         data.push(target.time);
     }
+    if(target.surrenderSize!=null){
+        data.push(target.surrenderSize);
+    }
     if(data.length>1){
         return data;
     }

@@ -531,6 +531,8 @@ class Unarmed extends Gun{
 		clone.timeUp=+clone.timeUp.toFixed(rounding);
 		clone.time=this.time;
 		clone.time=+clone.time.toFixed(rounding);
+		clone.surrenderSize=this.surrenderSize;
+		clone.surrenderSize=+clone.surrenderSize.toFixed(rounding);
 		return clone;
 	}
 }

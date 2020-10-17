@@ -63,7 +63,6 @@ class Display{
 			let movement=new Vector(state.bulletsList[i].pos);
 			movement.subVec(matched.pos);
 			matched.animation=movement;
-			matched.ang=state.bulletsList[i].ang;
 		}
 		for(let j=this.phantomState.bulletsList.length-1;j>=0;j--){
 			if(this.phantomState.bulletsList[j].deadTime>1){
@@ -96,8 +95,29 @@ class Display{
 			movement.subVec(matched.pos);
 			matched.animation=movement;
 			matched.health=state.playersList[i].health;
-			matched.rot=state.playersList[i].rot;
+			matched.rotAnim=nrm2Ang(state.playersList[i].rot-matched.rot);
 			matched.transparent=state.playersList[i].transparent;
+			if(state.playersList[i].weapon.rot!=null){
+				matched.weapon.rotAnim=nrm2Ang(state.playersList[i].weapon.rot-matched.weapon.rot);
+			}
+			if(state.playersList[i].weapon.rot1!=null){
+				matched.weapon.rot1Anim=nrm2Ang(state.playersList[i].weapon.rot1-matched.weapon.rot1);
+			}
+			if(state.playersList[i].weapon.rot2!=null){
+				matched.weapon.rot2Anim=nrm2Ang(state.playersList[i].weapon.rot2-matched.weapon.rot2);
+			}
+			if(state.playersList[i].weapon.stored!=null){
+				matched.weapon.storedAnim=state.playersList[i].weapon.stored-matched.weapon.stored;
+			}
+			if(state.playersList[i].weapon.timeUp!=null){
+				matched.weapon.timeUp=state.playersList[i].weapon.timeUp;
+			}
+			if(state.playersList[i].weapon.time!=null){
+				matched.weapon.timeAnim=state.playersList[i].weapon.time-matched.weapon.time;
+			}
+			if(state.playersList[i].weapon.surrenderSize!=null){
+				matched.weapon.surrenderSize=state.playersList[i].weapon.surrenderSize;
+			}
 		}
 		for(let j=this.phantomState.playersList.length-1;j>=0;j--){
 			if(this.phantomState.playersList[j].deadTime>1){
@@ -110,11 +130,41 @@ class Display{
 			let toMove=new Vector(this.phantomState.bulletsList[i].animation);
 			toMove.sclVec(amount);
 			this.phantomState.bulletsList[i].pos.addVec(toMove);
+			if(this.phantomState.bulletsList[i].ang==null){
+				this.phantomState.bulletsList[i].ang=0;
+			}
+			if(this.phantomState.bulletsList[i].name=="mine"){
+				this.phantomState.bulletsList[i].ang-=0.1*amount;
+			}else if(this.phantomState.bulletsList[i].name=="heal"){
+				this.phantomState.bulletsList[i].ang-=0.4*amount;
+			}else if(this.phantomState.bulletsList[i].name=="fist"){
+				let veloVec=new Vector(this.phantomState.bulletsList[i].velo);
+				this.phantomState.bulletsList[i].ang=veloVec.getAng();
+			}
 		}
 		for(let i=0;i<this.phantomState.playersList.length;i++){
 			let toMove=new Vector(this.phantomState.playersList[i].animation);
 			toMove.sclVec(amount);
 			this.phantomState.playersList[i].pos.addVec(toMove);
+			this.phantomState.playersList[i].rot+=this.phantomState.playersList[i].rotAnim*amount;
+			
+			let weapon=this.phantomState.playersList[i].weapon;
+			if(weapon.rotAnim!=null){
+				weapon.rot+=weapon.rotAnim*amount;
+			}
+			if(weapon.rot1Anim!=null){
+				weapon.rot1+=weapon.rot1Anim*amount;
+			}
+			if(weapon.rot2Anim!=null){
+				weapon.rot2+=weapon.rot2Anim*amount;
+			}
+			if(weapon.storedAnim!=null){
+				weapon.stored+=weapon.storedAnim*amount;
+				weapon.stored=Math.max(weapon.stored,0);
+			}
+			if(weapon.timeAnim!=null){
+				weapon.time+=weapon.timeAnim*amount;
+			}
 		}
 	}
 
@@ -286,7 +336,7 @@ class Display{
 			this.shape();
 
 		}else if(gun.name=="charger"){
-			let chargeOff=gun.stored/3*0.3;
+			let chargeOff=gun.stored/3*0.5;
 			this.start();
 			this.mt((player.size/2+0.8)+chargeOff,0.4);
 			this.lt((player.size/2+0.8)+chargeOff,-0.4);

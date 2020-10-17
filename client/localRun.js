@@ -238,6 +238,8 @@ function parseStateUpdate(str){
 			index++;
 			target.time=+arrRaw[index];
 			index++;
+			target.surrenderSize=+arrRaw[index];
+			index++;
 		}else if(name=="wall"||name=="claw"){
 			target.rot=+arrRaw[index];
 			index++;
