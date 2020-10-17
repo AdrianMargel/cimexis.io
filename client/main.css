@@ -90,6 +90,7 @@ io-stat-select{
 	transition: all 1s;
 	opacity: 0;
 	pointer-events: none;
+    user-select: none;
 }
 #mainTitle.closed{
 	transition: all 1s;
@@ -97,6 +98,7 @@ io-stat-select{
 	position: absolute;
 	top: 500px;
 	pointer-events: none;
+    user-select: none;
 }
 #mainTitle{
 	transition: opacity 1s;
