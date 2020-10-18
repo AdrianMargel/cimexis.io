@@ -248,7 +248,7 @@ class MineLayer extends Gun{
 	modifyStats(shooter){
 		shooter.bulletSpeed=0;
 		shooter.range*=10;
-		shooter.damage*=4;
+		shooter.damage*=2;
 		shooter.kickback*=0.5;
 		shooter.bulletSize*=1.5;
 	}
