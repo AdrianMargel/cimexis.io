@@ -30,7 +30,7 @@ app.use(express.static(__dirname + '/node_modules'));
 //     res.sendFile(__dirname + '/client/index.html');
 // });
 
-app.use(express.static('client'))
+app.use(express.static('client'));
 
 var cycleCount=0;
 var lastTime=0;
