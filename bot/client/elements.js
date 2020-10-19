@@ -462,8 +462,3 @@ function toggleSummary(toggle){
 	}
 	updateSize();
 }
-
-
-let seed=new SpawnDialog();
-seed.init();
-appElm(seed,document.body);

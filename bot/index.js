@@ -22,11 +22,13 @@ var settings=null;
 var bot=new Bot();
 
 setInterval(()=>{
-	let tarPlayer=getPlayerByUid(state.playerUid);
-	let req=bot.control(tarPlayer,state,settings);
-	let reqStr=req.getString();
-	byteEstimateUp+=byteCount(reqStr);
-	socket.emit("control",reqStr);
+	if(state!=null){
+		let tarPlayer=getPlayerByUid(state.playerUid);
+		let req=bot.control(tarPlayer,state,settings);
+		let reqStr=req.getString();
+		byteEstimateUp+=byteCount(reqStr);
+		socket.emit("control",reqStr);
+	}
 }, 1000/10);
 
 function getPlayerByUid(uid){
@@ -46,6 +48,7 @@ function spawnIn(){
 socket.on('settings', (data) => {
 	settings=data;
 	spawnIn();
+	io.emit("settings", data);
 });
 socket.on('killed', (data) => {
 	spawnIn();
@@ -61,14 +64,27 @@ socket.on('state', (data) => {
 	}
 	parseStateUpdate(strArr[2]);
 	state.playerUid=+strArr[0];
+	io.emit("state", data);
     //state=data;
+});
+
+io.on('connection', socket => {
+	if(state!=null){
+		let baseStr=state.playerUid+"|"+lastBaseline+"|";
+		io.emit("state", baseStr);
+	}
+	if(settings!=null){
+		io.emit("settings", settings);
+	}
 });
 
 var stateString="";//for debugging
 var byteEstimateDown=0;//for debugging
 var byteEstimateUp=0;
+var lastBaseline="";
 
 function parseStateBaseline(str){
+	lastBaseline=str;
 	if(stateBaseline==null){
 		stateBaseline={};
 	}
@@ -197,3 +213,5 @@ function byteCount(s) {
 
     //return encodeURI(s).split(/%..|./).length - 1;
 }
+
+server.listen(PORT);

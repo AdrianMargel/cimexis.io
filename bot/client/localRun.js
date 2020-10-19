@@ -6,106 +6,6 @@ var settings=null;
 var gameDisplay=new Display();
 gameDisplay.connect();
 
-var control=new Control();
-control.connect(gameDisplay.canvas);
-
-var previewDisplay=new PreviewDisplay();
-
-setInterval(()=>{
-	let dialog=getElm("io-spawn",document.body);
-	if(dialog.style.display!="none"){
-		let previewP=dialog.getPlayer(new Settings);
-		previewDisplay.displayPreview(previewP);
-	}
-
-	if(!displaying){
-		gameDisplay.displayHollow();
-	}
-
-	if(gameDisplay.following!=null){
-		let move=new Vector();
-		if(control.pressedKeys[87]){
-			move.y-=10;
-		}
-		if(control.pressedKeys[83]){
-			move.y+=10;
-		}
-		if(control.pressedKeys[65]){
-			move.x-=10;
-		}
-		if(control.pressedKeys[68]){
-			move.x+=10;
-		}
-		if(move.x==0&&move.y==0){
-			move=null;
-		}else{
-			move.addVec(gameDisplay.following.pos);
-		}
-		let aim=new Vector(control.getMouse(gameDisplay.cam));
-		aim.subVec(gameDisplay.following.pos);
-		aim.nrmVec(100);
-		aim.addVec(gameDisplay.following.pos);
-		aim.addVec(gameDisplay.following.velo);
-		let req;
-		if(control.touchMode){
-			if(control.mouseDown){
-				req=new ControlRequest(aim,aim,control.mouseDown);
-			}
-		}else{
-			req=new ControlRequest(move,aim,control.mouseDown);
-		}
-		let reqStr=req.getString();
-		byteEstimateUp+=byteCount(reqStr);
-		socket.emit("control",reqStr);
-	}
-}, 1000/10);
-
-function toggleFullScreen() {
-  if ((document.fullScreenElement && document.fullScreenElement !== null) ||    
-   (!document.mozFullScreen && !document.webkitIsFullScreen)) {
-    if (document.documentElement.requestFullScreen) {  
-      document.documentElement.requestFullScreen();  
-    } else if (document.documentElement.mozRequestFullScreen) {  
-      document.documentElement.mozRequestFullScreen();  
-    } else if (document.documentElement.webkitRequestFullScreen) {  
-      document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);  
-    }
-    getElm(".fullScreenBtn").style.display="none";
-  } else {  
-    if (document.cancelFullScreen) {  
-      document.cancelFullScreen();  
-    } else if (document.mozCancelFullScreen) {  
-      document.mozCancelFullScreen();  
-    } else if (document.webkitCancelFullScreen) {  
-      document.webkitCancelFullScreen();  
-    }  
-  }
-}
-function openFullScreen(){
-	if ((document.fullScreenElement && document.fullScreenElement !== null) ||    
-	   (!document.mozFullScreen && !document.webkitIsFullScreen)) {
-	    if (document.documentElement.requestFullScreen) {  
-	      document.documentElement.requestFullScreen();  
-	    } else if (document.documentElement.mozRequestFullScreen) {  
-	      document.documentElement.mozRequestFullScreen();  
-	    } else if (document.documentElement.webkitRequestFullScreen) {  
-	      document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);  
-	    }
-	    getElm(".fullScreenBtn").style.display="none";
-	}
-}
-document.addEventListener('fullscreenchange', changeFullscreen, false);
-document.addEventListener('mozfullscreenchange', changeFullscreen, false);
-document.addEventListener('MSFullscreenChange', changeFullscreen, false);
-document.addEventListener('webkitfullscreenchange', changeFullscreen, false);
-
-function changeFullscreen(){
-	if (!((document.fullScreenElement && document.fullScreenElement !== null) ||    
-   		(!document.mozFullScreen && !document.webkitIsFullScreen))) {
-    	getElm(".fullScreenBtn").style.display="";
-	}
-}
-
 var displaying=true;
 var last;
 var totalElapsed=0;
@@ -141,14 +41,6 @@ function animation(timestamp) {
 }
 window.requestAnimationFrame(animation);
 
-var spawnStats={
-	sight: 25,
-	speed: 0,
-	reload: 100,
-	bulletSize: 100,
-	weapon: "mini gun"
-};
-
 function getPlayerByUid(uid){
 	for(let i=0;i<stateBaseline.playersList.length;i++){
 		if(stateBaseline.playersList[i].uid==uid){
@@ -160,47 +52,8 @@ function getPlayerByUid(uid){
 
 const socket = io();
 
-function spawnIn(){
-	let dialog=getElm("io-spawn",document.body);
-	if(dialog){
-		let toSpawn=dialog.getPlayer(new Settings);
-		//console.log({username: toSpawn.username,color:toSpawn.color,stats: toSpawn.stats});
-    	socket.emit("spawn",{username: toSpawn.username,color:"#"+toSpawn.color,stats: toSpawn.stats});
-    	dialog.classList.add("closed");
-    	getElm("#mainTitle",document.body).classList.add("closed");
-    	getElm("#canvasContainer",document.body).classList.remove("blur");
-    	setTimeout(()=>{setFullHide(true)}, 1000);
-	}
-}
-function setFullHide(toggle){
-	let dialog=getElm("io-spawn",document.body);
-	if(dialog){
-		if(toggle){
-			dialog.style.display="none";
-	    	getElm("#mainTitle",document.body).style.display="none";
-		}else{
-			dialog.style.display="";
-	    	getElm("#mainTitle",document.body).style.display="";
-		}
-	}
-}
-function reset(){
-	let dialog=getElm("io-spawn",document.body);
-    setFullHide(false);
-	if(dialog){
-    	setTimeout(()=>{
-			dialog.classList.remove("closed");
-	    	getElm("#mainTitle",document.body).classList.remove("closed");
-	    	getElm("#canvasContainer",document.body).classList.add("blur");
-		}, 100);
-	}
-}
-
 socket.on('settings', (data) => {
 	settings=data;
-});
-socket.on('killed', (data) => {
-	reset();
 });
 socket.on('state', (data) => {
 	//console.log(byteCount(JSON.stringify(data)));
@@ -213,7 +66,9 @@ socket.on('state', (data) => {
 	}
 	parseStateUpdate(strArr[2]);
 	state.playerUid=+strArr[0];
-	primeAnimation(state);
+	if(state.bulletsList!=null&&state.playersList!=null){
+		primeAnimation(state);
+	}
     //state=data;
 });
 var stateString="";//for debugging

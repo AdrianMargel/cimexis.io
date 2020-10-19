@@ -25,16 +25,16 @@ setInterval(()=>{
 	if(gameDisplay.following!=null){
 		let move=new Vector();
 		if(control.pressedKeys[87]){
-			move.y-=10;
+			move.y-=100;
 		}
 		if(control.pressedKeys[83]){
-			move.y+=10;
+			move.y+=100;
 		}
 		if(control.pressedKeys[65]){
-			move.x-=10;
+			move.x-=100;
 		}
 		if(control.pressedKeys[68]){
-			move.x+=10;
+			move.x+=100;
 		}
 		if(move.x==0&&move.y==0){
 			move=null;

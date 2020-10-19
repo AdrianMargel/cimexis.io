@@ -9,12 +9,8 @@
 	<link rel="stylesheet" href="main.css" />
 </head>
 <body>
-
-	<h1 id="mainTitle">Cimexis.io</h1>
-	<button class="fullScreenBtn" onclick="openFullScreen()">Fullscreen</button>
-
 	<div class="split">
-		<div class="canvasContainer blur" id="canvasContainer">
+		<div class="canvasContainer" id="canvasContainer">
 			<canvas id="canvas" width="1200" height="1200"></canvas>
 			<io-scoreboard class="scoreboard" style="display: none;">
 				<p class="title">Top Players</p>
@@ -43,77 +39,6 @@
 				<p class="title">Mini Map</p>
 				<canvas id="mapCanvas" width="200" height="200"></canvas>
 			</io-map>
-		</div>
-		<div id="controlContainer" class="controlContainer" style="display: none;">
-			<div class="userSelector">
-				<div class="left arrow"><a></a></div>
-				<div class="right arrow"><a></a></div>
-				<p class="title">Username</p>
-			</div>
-			<div class="userInfo">
-				<div class="close">
-					<button class="half" onclick="toggleSummary(false)">Close X</button>
-				</div>
-				<div class="general">
-					<p class="subtitle">Overview</p>
-						<p>Owner: <span class="fade">Adrian M</span></p>
-						<p>Name: <span class="fade">Username</span></p>
-						<p>Score: <span class="fade">1105</span></p>
-						<p class="gap">Weapon: <span class="fade">Basic Gun</span></p>
-						<p>Health: <span class="fade">30/100</span></p>
-				</div>
-				<div class="stats">
-					<p class="subtitle">Stats</p>
-					<div class="item">
-						<p>Health <span class="fade">25%</span></p>
-						<div class="bar"><div></div></div>
-					</div>
-					<div class="item">
-						<p>Regen <span class="fade">25%</span></p>
-						<div class="bar"><div></div></div>
-					</div>
-					<div class="item">
-						<p>Speed <span class="fade">25%</span></p>
-						<div class="bar"><div></div></div>
-					</div>
-					<div class="item">
-						<p>Size <span class="fade">25%</span></p>
-						<div class="bar"><div></div></div>
-					</div>
-					<div class="item">
-						<p>Sight <span class="fade">25%</span></p>
-						<div class="bar"><div></div></div>
-					</div>
-					<div class="item">
-						<p>Melee Damage <span class="fade">25%</span></p>
-						<div class="bar"><div></div></div>
-					</div>
-					<div class="item">
-						<p>Reload <span class="fade">25%</span></p>
-						<div class="bar"><div></div></div>
-					</div>
-					<div class="item">
-						<p>Damage <span class="fade">25%</span></p>
-						<div class="bar"><div></div></div>
-					</div>
-					<div class="item">
-						<p>Range <span class="fade">25%</span></p>
-						<div class="bar"><div></div></div>
-					</div>
-					<div class="item">
-						<p>Bullet Speed <span class="fade">25%</span></p>
-						<div class="bar"><div></div></div>
-					</div>
-					<div class="item">
-						<p>Bullet Size <span class="fade">25%</span></p>
-						<div class="bar"><div></div></div>
-					</div>
-					<div class="item">
-						<p>Knockback <span class="fade">25%</span></p>
-						<div class="bar"><div></div></div>
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
 
