@@ -601,7 +601,6 @@ class Game{
 			minimap.push(chunkCol);
 		}
 		return minimap;
-
 	}
 
 	getChunks(vec,tarSize){

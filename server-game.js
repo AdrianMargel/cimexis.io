@@ -198,6 +198,9 @@ function getPlayer(id){ //room for optimization here <<>>
 function getGlobalState(){
 	return gameRunner.state;
 }
+function getGlobalGame(){
+	return gameRunner;
+}
 
 module.exports = function() { 
 	this.registerUser=registerUser;
@@ -209,4 +212,5 @@ module.exports = function() {
 	this.disconnectUser=disconnectUser;
 	this.getSettings=getSettings;
 	this.getGlobalState=getGlobalState;
+	this.getGlobalGame=getGlobalGame;
 }

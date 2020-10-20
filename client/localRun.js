@@ -202,6 +202,12 @@ socket.on('settings', (data) => {
 socket.on('killed', (data) => {
 	reset();
 });
+socket.on('meta', (data) => {
+	if(stateBaseline!=null){
+		stateBaseline.scoreboard=data.scoreboard;
+		stateBaseline.minimap=data.minimap;
+	}
+});
 socket.on('state', (data) => {
 	//console.log(byteCount(JSON.stringify(data)));
 	//console.log(data,byteCount(data));

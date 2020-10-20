@@ -15,11 +15,10 @@ class Bot{
 		};
 
 		this.selfImage=new Player(this.stats);
-		console.log(this.selfImage);
 	}
 	control(controllingPlayer,visibleState,settings){
 		let move=new Vector();
-		let aim=new Vector();
+		let aim=new Vector(10,10);
 		let attack=true;
 		return new ControlRequest(move,aim,attack);
 	}

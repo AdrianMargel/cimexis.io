@@ -97,10 +97,17 @@ function stateBaselineBlob(target){
     }
     return ps;
 }
+function stateMetaBlob(scoreboard,minimap){
+    return {
+        scoreboard: scoreboard,
+        minimap: minimap
+    };
+}
 
 module.exports = function() { 
 	this.stateUpdateBlob=stateUpdateBlob;
-	this.stateBaselineBlob=stateBaselineBlob;
+    this.stateBaselineBlob=stateBaselineBlob;
+    this.stateMetaBlob=stateMetaBlob;
 }
 
   

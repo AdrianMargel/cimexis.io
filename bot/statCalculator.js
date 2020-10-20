@@ -27,7 +27,7 @@ class Player{
 	}
 	getWeapon(){
 		for(let i=0;i<gunList.length;i++){
-			if(gunList[i].name==name){
+			if(gunList[i].name==this.weapon){
 				return gunList[i].clone();
 			}
 		}
@@ -51,22 +51,22 @@ class Stats{
 
 	//string weapon
 	constructor(clone){
-		this.health=clone.health;
-		this.regen=clone.regen;
-		this.speed=clone.speed;
-		this.size=clone.size;
-		this.sight=clone.sight;
+		this.health=clone.health||0;
+		this.regen=clone.regen||0;
+		this.speed=clone.speed||0;
+		this.size=clone.size||0;
+		this.sight=clone.sight||0;
 
-		this.meleeDamage=clone.meleeDamage;
+		this.meleeDamage=clone.meleeDamage||0;
 
-		this.reload=clone.reload;
-		this.damage=clone.damage;
+		this.reload=clone.reload||0;
+		this.damage=clone.damage||0;
 		//this.range=100;
-		this.bulletSpeed=clone.bulletSpeed;
-		this.bulletSize=clone.bulletSize;
-		this.knockback=clone.knockback;
-		this.kickback=clone.kickback;
-		this.accuracy=clone.accuracy;
+		this.bulletSpeed=clone.bulletSpeed||0;
+		this.bulletSize=clone.bulletSize||0;
+		this.knockback=clone.knockback||0;
+		this.kickback=clone.kickback||0;
+		this.accuracy=clone.accuracy||0;
 
 		this.weapon=clone.weapon;
 

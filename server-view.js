@@ -43,6 +43,9 @@ setInterval(()=>{
 	}
 	sendStateUpdate();
 	calcRunningSpeed();
+	if(cycleCount%50==0){//update every few seconds
+		sendMetaUpdate();
+	}
 }, 100);
 
 function calcRunningSpeed(){
@@ -79,6 +82,12 @@ function sendStateUpdate(){
 			io.to(users[i].id).emit('state', users[i].player.uid+"|"+baseline+"|"+stateStr);
 		}
 	}
+}
+//this updates the scoreboard and game map
+function sendMetaUpdate(){
+	let game=getGlobalGame();
+	let metaObj=stateMetaBlob(game.getScoreboard(),game.getMinimap());
+	io.emit('meta', metaObj);
 }
 function sendKillSignal(userId){
 	io.to(userId).emit('killed');
