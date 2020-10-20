@@ -1,5 +1,6 @@
 
 require('./util.js')();
+require('./statCalculator.js')();
 
 class Bot{
 	constructor(){
@@ -12,6 +13,9 @@ class Bot{
 			reload: 100,
 			bulletSize: 100
 		};
+
+		this.selfImage=new Player(this.stats);
+		console.log(this.selfImage);
 	}
 	control(controllingPlayer,visibleState,settings){
 		let move=new Vector();
