@@ -466,16 +466,16 @@ class GameState{
 		for(let i=0;i<this.playersList.length;i++){
 			pSort.push(this.playersList[i]);
 		}
-		pSort.sort((a, b) => {return a.score - b.score;});
-		let scoreNames=[];
+		pSort.sort((a, b) => {return b.score - a.score;});
+		let scoreList=[];
 		for(let i=0;i<pSort.length;i++){
 			let summary={};
 			summary.score=pSort[i].getScore();
-			summary.username=pSort[i].username;
-			scoreNames.push(summary);
+			summary.uid=pSort[i].uid;
+			scoreList.push(summary);
 		}
 
-		return scoreNames;
+		return scoreList;
 	}
 }
 class Settings{

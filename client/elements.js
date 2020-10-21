@@ -6,11 +6,32 @@ class ScoreBoard extends HTMLElement{
 
 	}
 	connectedCallback(){
-
+  		addClass("scoreboard",this);
   	}
 
-  	update(){
+  	update(scoreboard){
+  		clearElm(this);
+  		let title=newElm("P","title");
+  		title.textContent="Top Players";
+  		appElm(title,this);
+  		let count=Math.min(scoreboard.length,10);
+  		for(let i=0;i<count;i++){
+  			let score=scoreboard[i].score;
+  			let username=scoreboard[i].username;
+  			let rank=i;
+  			let item=newElm("DIV","item");
+  			let rankP=newElm("P","rank");
+  			rankP.textContent=rank;
+  			appElm(rankP,item);
+  			let nameP=newElm("P","name");
+  			nameP.textContent=username;
+  			appElm(nameP,item);
+  			let scoreP=newElm("P","score");
+  			scoreP.textContent="("+score+")";
+  			appElm(scoreP,item);
 
+  			appElm(item,this);
+  		}
   	}
 }
 customElements.define('io-scoreboard', ScoreBoard);

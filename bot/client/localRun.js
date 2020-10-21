@@ -42,9 +42,11 @@ function animation(timestamp) {
 window.requestAnimationFrame(animation);
 
 function getPlayerByUid(uid){
-	for(let i=0;i<stateBaseline.playersList.length;i++){
-		if(stateBaseline.playersList[i].uid==uid){
-			return stateBaseline.playersList[i];
+	if(stateBaseline!=null&&stateBaseline.playersList!=null){
+		for(let i=0;i<stateBaseline.playersList.length;i++){
+			if(stateBaseline.playersList[i].uid==uid){
+				return stateBaseline.playersList[i];
+			}
 		}
 	}
 	return null;

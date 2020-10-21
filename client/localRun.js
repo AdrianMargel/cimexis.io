@@ -1,6 +1,6 @@
 
 var state=null;
-var stateBaseline=null;
+var stateBaseline={};
 var settings=null;
 
 var gameDisplay=new Display();
@@ -141,6 +141,14 @@ function animation(timestamp) {
 }
 window.requestAnimationFrame(animation);
 
+function displayMinimap(){
+	if(state!=null&&settings!=null){
+		if(gameDisplay.following!=null){
+			gameDisplay.displayMinimap(stateBaseline.minimap,settings);
+		}
+	}
+}
+
 var spawnStats={
 	sight: 25,
 	speed: 0,
@@ -150,9 +158,11 @@ var spawnStats={
 };
 
 function getPlayerByUid(uid){
-	for(let i=0;i<stateBaseline.playersList.length;i++){
-		if(stateBaseline.playersList[i].uid==uid){
-			return stateBaseline.playersList[i];
+	if(stateBaseline!=null&&stateBaseline.playersList!=null){
+		for(let i=0;i<stateBaseline.playersList.length;i++){
+			if(stateBaseline.playersList[i].uid==uid){
+				return stateBaseline.playersList[i];
+			}
 		}
 	}
 	return null;
@@ -206,6 +216,18 @@ socket.on('meta', (data) => {
 	if(stateBaseline!=null){
 		stateBaseline.scoreboard=data.scoreboard;
 		stateBaseline.minimap=data.minimap;
+		for(let i=0;i<stateBaseline.scoreboard.length;i++){
+			let playerMatch=getPlayerByUid(stateBaseline.scoreboard[i].uid);
+			if(playerMatch!=null){
+				stateBaseline.scoreboard[i].username=playerMatch.username;
+			}
+		}
+		let sb=getElm("io-scoreboard.scoreboard",document.body);
+		sb.update(stateBaseline.scoreboard);
+		displayMinimap();
+
+		let updateSize=byteCount(JSON.stringify(data));
+		byteEstimateDown+=updateSize;
 	}
 });
 socket.on('state', (data) => {
@@ -227,9 +249,6 @@ var byteEstimateDown=0;//for debugging
 var byteEstimateUp=0;
 
 function parseStateBaseline(str){
-	if(stateBaseline==null){
-		stateBaseline={};
-	}
 	let arrRaw=str.split(",");
 	let index=0;
 	let ps=[];

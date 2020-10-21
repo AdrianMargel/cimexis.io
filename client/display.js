@@ -210,7 +210,6 @@ class Display{
 				this.displaySight(this.following);
 			}
 		}
-		this.displayMiniMap(gameState.minimap,settings,this.following);
 	}
 	updateSize(){
 		let w=this.canvasContainer.offsetWidth;
@@ -724,7 +723,7 @@ class Display{
 		}
 		this.ctx.lineCap="butt";
 	}
-	displayMiniMap(minimap,settings){
+	displayMinimap(minimap,settings){
 		let chunkSize=settings.chunkSize;
 		if(minimap!=null){
 			this.mapCtx.clearRect(0,0,this.mapCanvasSize.x,this.mapCanvasSize.y);

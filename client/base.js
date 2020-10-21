@@ -97,6 +97,11 @@ function getElms(selector,target){
 	}
 	return document.querySelectorAll(selector);
 }
+function clearElm(target){
+	while(target.firstChild) {
+		target.removeChild(target.lastChild);
+	}
+}
 
 
 

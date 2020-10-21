@@ -43,7 +43,7 @@ setInterval(()=>{
 	}
 	sendStateUpdate();
 	calcRunningSpeed();
-	if(cycleCount%50==0){//update every few seconds
+	if(cycleCount%10==0){//update every second
 		sendMetaUpdate();
 	}
 }, 100);
@@ -107,6 +107,7 @@ io.on('connection', socket => {
 		if(data!=null){
 			if(spawnSafe(userId,data)){
 				sendStateBaseline();
+				sendMetaUpdate();
 			}
 		}
 	});
