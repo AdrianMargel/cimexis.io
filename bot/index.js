@@ -32,9 +32,11 @@ setInterval(()=>{
 }, 1000/10);
 
 function getPlayerByUid(uid){
-	for(let i=0;i<stateBaseline.playersList.length;i++){
-		if(stateBaseline.playersList[i].uid==uid){
-			return stateBaseline.playersList[i];
+	if(stateBaseline!=null&&stateBaseline.playersList!=null){
+		for(let i=0;i<stateBaseline.playersList.length;i++){
+			if(stateBaseline.playersList[i].uid==uid){
+				return stateBaseline.playersList[i];
+			}
 		}
 	}
 	return null;
@@ -52,6 +54,23 @@ socket.on('settings', (data) => {
 });
 socket.on('killed', (data) => {
 	spawnIn();
+});
+socket.on('meta', (data) => {
+	if(stateBaseline!=null){
+		stateBaseline.scoreboard=data.scoreboard;
+		stateBaseline.minimap=data.minimap;
+		for(let i=0;i<stateBaseline.scoreboard.length;i++){
+			let playerMatch=getPlayerByUid(stateBaseline.scoreboard[i].uid);
+			if(playerMatch!=null){
+				stateBaseline.scoreboard[i].username=playerMatch.username;
+			}
+		}
+
+		let updateSize=byteCount(JSON.stringify(data));
+		byteEstimateDown+=updateSize;
+
+		io.emit("meta", data);
+	}
 });
 socket.on('state', (data) => {
 	//console.log(byteCount(JSON.stringify(data)));

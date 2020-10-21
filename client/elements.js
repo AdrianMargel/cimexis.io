@@ -18,7 +18,7 @@ class ScoreBoard extends HTMLElement{
   		for(let i=0;i<count;i++){
   			let score=scoreboard[i].score;
   			let username=scoreboard[i].username;
-  			let rank=i;
+  			let rank=i+1;
   			let item=newElm("DIV","item");
   			let rankP=newElm("P","rank");
   			rankP.textContent=rank;
