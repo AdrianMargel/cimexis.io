@@ -14,7 +14,7 @@ var previewDisplay=new PreviewDisplay();
 setInterval(()=>{
 	let dialog=getElm("io-spawn",document.body);
 	if(dialog.style.display!="none"){
-		let previewP=dialog.getPlayer(new Settings);
+		let previewP=dialog.getPlayer(new Settings());
 		previewDisplay.displayPreview(previewP);
 	}
 

@@ -65,6 +65,7 @@ function clearDead(){
 	}
 }
 function spawnSafe(id,data){
+	console.log("test 3");
 	let toSpawn=validateSpawn(data);
 	return spawnPlayer(id,toSpawn.username,toSpawn.color,toSpawn.stats)
 }
@@ -82,10 +83,12 @@ function spawnPlayer(id,username,color,stats){
 function validateSpawn(data){
 	let usernameLength=20;
 	let toSpawn={};
+	console.log(data.username);
 	if(typeof data.username=="string"){
-		data.username=data.username.replace(",","");
-		data.username=data.username.replace("|","");
+		data.username=data.username.replace(/,/g,"");
+		data.username=data.username.replace(/\|/g,"");
 	}
+	console.log(data.username);
 	toSpawn.username=(typeof data.username=="string" && data.username.length>0)?data.username.substring(0, usernameLength):"unknown";
 	toSpawn.color=isHex(data.color)?data.color:"#0087E8";
 	toSpawn.stats=data.stats?parseStats(data.stats):new Stats();
