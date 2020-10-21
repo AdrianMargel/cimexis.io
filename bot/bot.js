@@ -9,9 +9,11 @@ class Bot{
 		this.stats={
 			weapon: "mini gun",
 			sight: 25,
-			speed: 100,
+			speed: 50,
 			reload: 100,
-			bulletSize: 100
+			bulletSize: 100,
+			bulletSpeed: 100,
+			regen: 25
 		};
 
 		this.selfImage=new Player(this.stats);
