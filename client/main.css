@@ -104,7 +104,20 @@ io-stat-select{
 	transition: opacity 1s, top 1s, font-size 1s;
 }
 
+.hideFull .scoreboard{
+	opacity: 1;
+}
+.hideFull .map{
+	opacity: 1;
+}
+.map{
+	opacity: 0;
+	transition: opacity 1s;
+}
+
 .scoreboard{
+	opacity: 0;
+	transition: opacity 1s;
 	position: absolute;
 	width: 300px;
 	right: 20px;
@@ -613,6 +626,12 @@ io-dropdown{
 		bottom: 10px;
 		right: 10px;
 	}
+	.hideFull .scoreboard{
+		opacity: 0;
+	}
+	.hideFull .map{
+		opacity: 0;
+	}
 }
 @media only screen and (max-width: 700px) {
 	#mainTitle{
@@ -660,6 +679,12 @@ io-dropdown{
 		padding: 10px 10px;
 		bottom: 10px;
 		right: 10px;
+	}
+	.hideFull .scoreboard{
+		opacity: 0;
+	}
+	.hideFull .map{
+		opacity: 0;
 	}
 }
 

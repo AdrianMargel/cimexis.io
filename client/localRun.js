@@ -193,6 +193,12 @@ function setFullHide(toggle){
 	    	getElm("#mainTitle",document.body).style.display="";
 		}
 	}
+
+	if(toggle){
+		document.body.classList.add("hideFull");
+	}else{
+		document.body.classList.remove("hideFull");
+	}
 }
 function reset(){
 	let dialog=getElm("io-spawn",document.body);
