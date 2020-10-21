@@ -129,6 +129,9 @@ class Display{
 		}
 	}
 	predict(amount){
+		if(this.phantomState==null){
+			return;
+		}
 		for(let i=0;i<this.phantomState.bulletsList.length;i++){
 			let toMove=new Vector(this.phantomState.bulletsList[i].animation);
 			toMove.sclVec(amount);
@@ -172,6 +175,9 @@ class Display{
 	}
 
 	setFollow(playerUid){
+		if(this.phantomState==null){
+			return;
+		}
 		for(let j=0;j<this.phantomState.playersList.length;j++){
 			if(this.phantomState.playersList[j].uid==playerUid){
 				this.following=this.phantomState.playersList[j];
@@ -186,6 +192,9 @@ class Display{
 		this.displayMap(new Vector(200,200),5);
 	}
 	display(settings,anim){
+		if(this.phantomState==null){
+			return;
+		}
 		let gameState=this.phantomState;
 		this.predict(anim);
 		this.calcCam();

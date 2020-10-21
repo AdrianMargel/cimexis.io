@@ -219,7 +219,6 @@ class Display{
 				this.displaySight(this.following);
 			}
 		}
-		this.displayMiniMap(gameState.minimap,settings,this.following);
 	}
 	updateSize(){
 		let w=this.canvasContainer.offsetWidth;
