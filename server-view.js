@@ -15,15 +15,26 @@ TODO<<>>
 
 */
 
-
 require('./server-game.js')();
 require('./encoder.js')();
 
+var localPort=4200;
+function requireHTTPS(req, res, next) {
+	if(req.get('host')!="localhost:"+localPort){
+		// The 'x-forwarded-proto' check is for Heroku
+		if (!req.secure && req.get('x-forwarded-proto') !== 'https' && process.env.NODE_ENV !== "development") {
+			return res.redirect('https://' + req.get('host') + req.url);
+		}
+	}
+	next();
+}
+
 var express = require('express');  
 var app = express();  
+app.use(requireHTTPS);
 var server = require('http').createServer(app);  
 var io = require('socket.io')(server);
-const PORT = process.env.PORT || 4200;
+const PORT = process.env.PORT || localPort;
 
 app.use(express.static(__dirname + '/node_modules'));  
 // app.get('/', function(req, res,next) {  
