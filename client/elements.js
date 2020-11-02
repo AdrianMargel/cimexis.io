@@ -39,6 +39,7 @@ customElements.define('io-scoreboard', ScoreBoard);
 class SpawnDialog extends HTMLElement{
 	constructor(){
 		super();
+		this.init();
 	}
 	init(){
 		let stats=[
@@ -485,6 +486,6 @@ function toggleSummary(toggle){
 }
 
 
-let seed=new SpawnDialog();
-seed.init();
-appElm(seed,document.body);
+// let seed=new SpawnDialog();
+// seed.init();
+// appElm(seed,document.body);

@@ -64,7 +64,7 @@ input{
 	font-weight: 700;
 
 }
-h1{
+.mainTitle{
 	position: absolute;
 	right: 0;
 	left: 0;
@@ -74,6 +74,14 @@ h1{
 	text-align: center;
 	font-family: 'Fredoka One', sans-serif;
 }
+.mainTitle .small{
+	font-size: 0.5em;
+	font-family: 'Nunito', sans-serif;
+	position: absolute;
+	top:35%;
+	padding-left: 0.5em;
+}
+
 io-stat-select{
 	display: block;
 }
@@ -687,6 +695,8 @@ io-dropdown{
 		opacity: 0;
 	}
 }
+
+
 
 /*
 https://fonts.google.com/specimen/Nunito

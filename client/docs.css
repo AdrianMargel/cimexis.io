@@ -1,0 +1,62 @@
+body{
+    position: relative;
+	overflow-y: auto;
+}
+.background{
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	height: 100%;
+	background-image: url("img/canvas-grid.png");
+	background-position: 446px 476px;
+	z-index: -1;
+}
+
+.mainTitle{
+	padding-right: 1.5em;
+}
+.infoSection{
+	right: 0;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 10;
+	padding-top: 200px;
+	padding-bottom: 50px;
+	transition: opacity 1s, padding-top 0.5s;
+}
+.infoSection .inner{
+	border-radius: 10px;
+	padding: 40px 40px;
+	background-color: #F5F5F5;
+	width: 100%;
+	max-width: 1200px;
+	min-height: 600px;
+}
+.infoSection .contain{
+	padding-right: 40px;
+	padding-left: 40px;
+}
+.infoSection h2{
+	font-size: 50px;
+	font-weight: 700;
+	text-align: center;
+	border-bottom: 3px solid #AAA49D;
+	margin-bottom: 20px;
+	margin-top: 20px;
+}
+.infoSection h3{
+	font-size: 30px;
+	font-weight: 700;
+	text-align: center;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+.infoSection p{
+	font-size: 20px;
+	margin-bottom: 20px;
+}

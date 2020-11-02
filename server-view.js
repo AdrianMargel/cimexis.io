@@ -1,17 +1,22 @@
 
 /*
 TODO<<>>
--testing for bad user inputs
-	-Make sure usernames can't have "," or "|"
 
--optimize server/client communications to use less data
-
--local view/editor
-	-60fps smoothing
-	-server lag/ping tracking ?
 -global view
+
 -documentation
--human player/control
+-validation
+-built in methods
+-client js editor
+-stress testing
+
+-local storage for persistance
+-stat clear button
+-weapon selector should stop scroll default
+-warning message for IE/old browsers
+-better mobile support (partial support)?
+-refactoring?
+-optimization (specifically data usage)?
 
 */
 
