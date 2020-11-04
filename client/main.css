@@ -696,6 +696,12 @@ io-dropdown{
 	}
 }
 
+.bold{
+	font-weight: 700;
+}
+.underline{
+	text-decoration: underline;
+}
 
 
 /*

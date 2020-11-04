@@ -60,3 +60,80 @@ body{
 	font-size: 20px;
 	margin-bottom: 20px;
 }
+
+.weaponList{
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+.weaponList .item{
+	position: relative;
+	width: 200px;
+	min-width: 200px;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	border: 3px solid #AAA49D;
+	/*background-color: #3D362E;*/
+	margin-top: 30px;
+	margin-bottom: 20px;
+	margin-right: 10px;
+	margin-left: 10px;
+	padding-left: 20px;
+	padding-right: 20px;
+	padding-bottom: 30px;
+}
+.weaponList .weaponImage{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 120px;
+	height: 60px;
+	position: absolute;
+	top: -3px;
+	background-color: #F5F5F5;
+	border: 3px solid #AAA49D;
+	border-bottom-right-radius: 63px;
+	border-bottom-left-radius: 63px;
+    border-top: 0;
+}
+.weaponList .weaponImage img{
+	min-width: 160px;
+	position: relative;
+	top: -10px;
+	transform: rotate(-30deg);
+	user-select: none;
+}
+.weaponList p{
+	margin-bottom: 10px;
+	z-index: 10;
+}
+.weaponList .title{
+	text-align: center;
+	position: relative;
+	font-weight: 700;
+	font-size: 22px;
+	margin-top: 45px;
+	padding: 2px 8px;
+	background-color: #F5F5F5;
+}
+.weaponList .description{
+	text-align: center;
+	font-size: 18px;
+}
+.weaponList ul{
+	padding-top: 10px;
+}
+.weaponList li{
+	text-align: left;
+	font-size: 16px;
+	font-weight: 700;
+	margin-bottom: 2px;
+}
+.weaponList li.good{
+	color: #22B550;
+}
+
+.weaponList li.bad{
+	color: #C43341;
+}
