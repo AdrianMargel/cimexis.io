@@ -19,16 +19,31 @@ body{
 }
 button{
 	background-color: #6ED393;
-	/*border: 4px solid #65BFB6;*/
-	border: none;
+	border: 4px solid #6ED393;
 	border-radius: 10px;
 	font-family: 'Nunito', sans-serif;
 	color: white;
 	font-weight: 700;
 	font-size: 20px;
-	padding: 10px 40px;
+	padding: 6px 36px;
 
 	margin-top: 20px;
+}
+button.minor{
+	background-color: #EDEAE8;
+	border-width: 2px;
+	border-color: #AAA49D;
+	color: #AAA49D;
+}
+button.minor:hover{
+	border-width: 2px;
+	color: #51BC76;
+}
+button.minor:active{
+	background-color: #EDEAE8;
+}
+button:hover{
+	border: 4px solid #51BC76;
 }
 button:active{
 	background-color: #51BC76;
@@ -384,6 +399,7 @@ io-stat-select{
 	display: flex;
 	flex-direction: column;
 	align-items: stretch;
+	position: relative;
 }
 .spawnDialog .inner .head{
 	padding-top: 20px;
@@ -416,12 +432,13 @@ io-stat-select{
 	border-bottom-left-radius: 0;
 	padding-top: 0;
 	padding-bottom: 0;
+	height: 42px;
 }
 .spawnDialog .inner .head .username button .arrow{
 	border-color: white;
 	position: relative;
 	left: -3px;
-	top: -3px;
+	top: -7px;
 	border-width: 0 4px 4px 0;
 	padding: 4px;
 }
@@ -610,6 +627,17 @@ io-dropdown{
 
 .fullScreenBtn{
 	display: none;
+}
+
+.docsLink{
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	margin: 0;
+	border-bottom-right-radius: 0;
+	border-top-left-radius: 0;
+	padding: 4px 20px;
+	font-size: 18px;
 }
 
 @media only screen and (max-height: 700px) {

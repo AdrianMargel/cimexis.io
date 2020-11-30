@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="reset.css" />
 
 	<!-- <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Sen:wght@400;700;800&display=swap" rel="stylesheet"> -->
-	<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet"> 
+	<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Fredoka+One&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet"> 
 	<link rel="stylesheet" href="main.css" />
 	<link rel="stylesheet" href="docs.css" />
 </head>
@@ -16,6 +16,7 @@
 
 	<div class="infoSection">
 		<div class="inner">
+			<button class="back" onclick="window.location.href = './index.html';">Home</button>
 			<section>
 				<h2>General</h2>
 				<div class="contain">
@@ -279,8 +280,119 @@
 			</section>
 			<section>
 				<h2>Bots</h2>
-				<h3>Overview</h3>
-				<h3>Methods</h3>
+				<div class="contain">
+					<p class="center">The following section will cover the basics of creating a bot to play the game.</p>
+					<h3>Setup</h3>
+					<p>Before you can get started you will need to download the bot kit. This kit contains some boilerplate code that will help you get started. You will also need to have node.js installed.</p>
+					<h3>Basic</h3>
+					<p>Before spawning the constructor will be called. Within the constructor you will be allowed to set your username, your color, your stats and your weapon.</p>
+					<p>Every 1/10th of a second the control method will be called. In this control method you are able to set how the bot will act.</p>
+					<h3>Methods</h3>
+					<p>There are a number of built-in functions which you can use while building a bot. These functions are listed below.</p>
+					<ul class="methodList">
+						<li>
+							<div class="tab"><div></div></div>
+							<p class="name">function getDist(tar) <span>returns <span class="code">number</span></span></p>
+							<p class="description">Gets the distance between the player and the target vector or entity</p>
+							<p class="title">Parameters</p>
+							<p class="parameter">tar <span class="code">Vector</span> or <span class="code">Entity</span></p>
+						</li>
+						<li>
+							<div class="tab"><div></div></div>
+							<p class="name">function getState() <span>returns <span class="code">State</span></span></p>
+							<p class="description">Gets the state of every entity that is visible to the player</p>
+						</li>
+						<li>
+							<div class="tab"><div></div></div>
+							<p class="name">function getPlayerList(includePlayer) <span>returns <span class="code">Player[]</span></span></p>
+							<p class="description">Gets a list of visible players</p>
+							<p class="title">Parameters</p>
+							<p class="parameter">(optional) includePlayer <span class="code">boolean</span></p>
+						</li>
+						<li>
+							<div class="tab"><div></div></div>
+							<p class="name">function getBulletList() <span>returns <span class="code">Bullet[]</span></span></p>
+							<p class="description">Gets a list of visible bullets</p>
+						</li>
+						<li>
+							<div class="tab"><div></div></div>
+							<p class="name">function getBulletListEnemy() <span>returns <span class="code">Bullet[]</span></span></p>
+							<p class="description">Gets a list of visible bullets that can damage the player</p>
+						</li>
+						<li>
+							<div class="tab"><div></div></div>
+							<p class="name">function getBulletListFriendly() <span>returns <span class="code">Bullet[]</span></span></p>
+							<p class="description">Gets a list of visible bullets shot by the player</p>
+						</li>
+						<li>
+							<div class="tab"><div></div></div>
+							<p class="name">function getClosest(tarList) <span>returns <span class="code">Entity</span></span></p>
+							<p class="description">Get the closest entity to the player in a list</p>
+							<p class="title">Parameters</p>
+							<p class="parameter">tarList <span class="code">Entity[]</span></p>
+						</li>
+						<li>
+							<div class="tab"><div></div></div>
+							<p class="name">function getFurthest(tarList) <span>returns <span class="code">Entity</span></span></p>
+							<p class="description">Get the furthest entity from the player in a list</p>
+							<p class="title">Parameters</p>
+							<p class="parameter">tarList <span class="code">Entity[]</span></p>
+						</li>
+						<li>
+							<div class="tab"><div></div></div>
+							<p class="name">function getPlayer() <span>returns <span class="code">Player</span></span></p>
+							<p class="description">Gets the player</p>
+						</li>
+						<li>
+							<div class="tab"><div></div></div>
+							<p class="name">function runAt(tar)</p>
+							<p class="description">Run towards a target Vector or Entity</p>
+							<p class="title">Parameters</p>
+							<p class="parameter">tar <span class="code">Vector</span> or <span class="code">Entity</span></p>
+						</li>
+						<li>
+							<div class="tab"><div></div></div>
+							<p class="name">function runFrom(tar)</p>
+							<p class="description">Run away from a target Vector or Entity</p>
+							<p class="title">Parameters</p>
+							<p class="parameter">tar <span class="code">Vector</span> or <span class="code">Entity</span></p>
+						</li>
+						<li>
+							<div class="tab"><div></div></div>
+							<p class="name">function strafeAt(tar,direction)</p>
+							<p class="description">Run sideways compared to a target Vector or Entity</p>
+							<p class="title">Parameters</p>
+							<p class="parameter">tar <span class="code">Vector</span> or <span class="code">Entity</span></p>
+							<p class="parameter">(optional) direction <span class="code">boolean</span></p>
+						</li>
+						<li>
+							<div class="tab"><div></div></div>
+							<p class="name">function shootAt(tar)</p>
+							<p class="description">Shoot towards a target Vector or Entity</p>
+							<p class="title">Parameters</p>
+							<p class="parameter">tar <span class="code">Vector</span> or <span class="code">Entity</span></p>
+						</li>
+						<li>
+							<div class="tab"><div></div></div>
+							<p class="name">function shootFrom(tar)</p>
+							<p class="description">Shoot away from target Vector or Entity</p>
+							<p class="title">Parameters</p>
+							<p class="parameter">tar <span class="code">Vector</span> or <span class="code">Entity</span></p>
+						</li>
+						<li>
+							<div class="tab"><div></div></div>
+							<p class="name">function getMapSize() <span>returns <span class="code">Vector</span></span></p>
+							<p class="description">Returns a Vector for how large the game map is.</p>
+						</li>
+						<li>
+							<div class="tab"><div></div></div>
+							<p class="name">function stabilizeMovement(amount)</p>
+							<p class="description">This will exagerate movement requests to the server. This is useful for laggy connections or exagerating percise movements.</p>
+							<p class="title">Parameters</p>
+							<p class="parameter">amount <span class="code">number</span></p>
+						</li>
+					</ul>
+				</div>
 			</section>
 		</div>
 	</div>

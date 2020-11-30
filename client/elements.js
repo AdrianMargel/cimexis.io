@@ -66,6 +66,7 @@ class SpawnDialog extends HTMLElement{
 		addClass("spawnDialog",this);
 		this.innerHTML=`
 			<div class="inner">
+				<button class="docsLink minor" onclick="window.location.href = './docs.html';">Docs</button>
 				<div class="head">
 					<p>Username</p>
 					<div class="username">
@@ -452,6 +453,7 @@ class DropDown extends HTMLElement{
   		this.listElm.style.top=scrollPos+"px";
   	}
   	scroll(e){
+  		e.preventDefault();
   		//limit scroll speed
 		let d = new Date();
 		let time=d.getTime();

@@ -65,7 +65,6 @@ function clearDead(){
 	}
 }
 function spawnSafe(id,data){
-	console.log("test 3");
 	let toSpawn=validateSpawn(data);
 	return spawnPlayer(id,toSpawn.username,toSpawn.color,toSpawn.stats)
 }
@@ -95,22 +94,22 @@ function validateSpawn(data){
 function parseStats(stats){
 	let validStats=new Stats();
 
-	validStats.health=typeof stats.health=='number'?Math.min(Math.max(stats.health,0),100):0;
-	validStats.regen=typeof stats.regen=='number'?Math.min(Math.max(stats.regen,0),100):0;
-	validStats.speed=typeof stats.speed=='number'?Math.min(Math.max(stats.speed,0),100):0;
-	validStats.size=typeof stats.size=='number'?Math.min(Math.max(stats.size,0),100):0;
-	validStats.sight=typeof stats.sight=='number'?Math.min(Math.max(stats.sight,0),100):0;
+	validStats.health=typeof stats.health=='number'&&!isNaN(stats.health)?Math.min(Math.max(stats.health,0),100):0;
+	validStats.regen=typeof stats.regen=='number'&&!isNaN(stats.regen)?Math.min(Math.max(stats.regen,0),100):0;
+	validStats.speed=typeof stats.speed=='number'&&!isNaN(stats.speed)?Math.min(Math.max(stats.speed,0),100):0;
+	validStats.size=typeof stats.size=='number'&&!isNaN(stats.size)?Math.min(Math.max(stats.size,0),100):0;
+	validStats.sight=typeof stats.sight=='number'&&!isNaN(stats.sight)?Math.min(Math.max(stats.sight,0),100):0;
 
-	validStats.meleeDamage=typeof stats.meleeDamage=='number'?Math.min(Math.max(stats.meleeDamage,0),100):0;
+	validStats.meleeDamage=typeof stats.meleeDamage=='number'&&!isNaN(stats.meleeDamage)?Math.min(Math.max(stats.meleeDamage,0),100):0;
 
-	validStats.reload=typeof stats.reload=='number'?Math.min(Math.max(stats.reload,0),100):0;
-	validStats.damage=typeof stats.damage=='number'?Math.min(Math.max(stats.damage,0),100):0;
+	validStats.reload=typeof stats.reload=='number'&&!isNaN(stats.reload)?Math.min(Math.max(stats.reload,0),100):0;
+	validStats.damage=typeof stats.damage=='number'&&!isNaN(stats.damage)?Math.min(Math.max(stats.damage,0),100):0;
 	//validStats.range=typeof stats.range=='number'?Math.min(Math.max(stats.range,0),100):0;
-	validStats.bulletSpeed=typeof stats.bulletSpeed=='number'?Math.min(Math.max(stats.bulletSpeed,0),100):0;
-	validStats.bulletSize=typeof stats.bulletSize=='number'?Math.min(Math.max(stats.bulletSize,0),100):0;
-	validStats.knockback=typeof stats.knockback=='number'?Math.min(Math.max(stats.knockback,0),100):0;
-	validStats.kickback=typeof stats.kickback=='number'?Math.min(Math.max(stats.kickback,0),100):0;
-	validStats.accuracy=typeof stats.accuracy=='number'?Math.min(Math.max(stats.accuracy,0),100):0;
+	validStats.bulletSpeed=typeof stats.bulletSpeed=='number'&&!isNaN(stats.bulletSpeed)?Math.min(Math.max(stats.bulletSpeed,0),100):0;
+	validStats.bulletSize=typeof stats.bulletSize=='number'&&!isNaN(stats.bulletSize)?Math.min(Math.max(stats.bulletSize,0),100):0;
+	validStats.knockback=typeof stats.knockback=='number'&&!isNaN(stats.knockback)?Math.min(Math.max(stats.knockback,0),100):0;
+	validStats.kickback=typeof stats.kickback=='number'&&!isNaN(stats.kickback)?Math.min(Math.max(stats.kickback,0),100):0;
+	validStats.accuracy=typeof stats.accuracy=='number'&&!isNaN(stats.accuracy)?Math.min(Math.max(stats.accuracy,0),100):0;
 
 	validStats.weapon=typeof stats.weapon=='string'?stats.weapon:"gun";
 	validStats.validate();
@@ -144,18 +143,24 @@ function validateRequest(reqStr){
 		return null;
 	}
 	if(	req.move
-		&&req.move.x!=NaN
-		&&req.move.y!=NaN
+		&&typeof req.move.x=='number'
+		&&!isNaN(req.move.x)
+		&&typeof req.move.y=='number'
+		&&!isNaN(req.move.y)
 		&&req.aim
-		&&req.aim.x!=NaN
-		&&req.aim.y!=NaN
+		&&typeof req.aim.x=='number'
+		&&!isNaN(req.aim.x)
+		&&typeof req.aim.y=='number'
+		&&!isNaN(req.aim.y)
 		&&typeof req.attack=="boolean"){
 		return new ControlRequest(new Vector(req.move),new Vector(req.aim),req.attack);
 	}
 	if(	req.move==null
 		&&req.aim
-		&&req.aim.x!=NaN
-		&&req.aim.y!=NaN
+		&&typeof req.aim.x=='number'
+		&&!isNaN(req.aim.x)
+		&&typeof req.aim.y=='number'
+		&&!isNaN(req.aim.y)
 		&&typeof req.attack=="boolean"){
 		return new ControlRequest(null,new Vector(req.aim),req.attack);
 	}
@@ -178,7 +183,6 @@ function runAction(user){
 		//user.queue=null;
 	}
 }
-
 
 function getUser(id){ //room for optimization here <<>>
 	for(let i=0;i<users.length;i++){

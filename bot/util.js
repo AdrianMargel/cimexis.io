@@ -145,9 +145,216 @@ class ControlRequest{
 	}
 }
 
+var _move;
+var _aim;
+var _attack;
+var _controllingPlayer;
+var _visibleState;
+var _settings;
+
+function prime(controllingPlayer,visibleState,settings){
+	_controllingPlayer=controllingPlayer;
+	_controllingPlayer.pos=new Vector(_controllingPlayer.pos);
+	_visibleState=visibleState;
+	_settings=settings;
+
+	_move=null;
+	_aim=new Vector(0,0);
+	_attack=false;
+}
+function complete(){
+	return new ControlRequest(_move,_aim,_attack);
+}
+
+function getDist(tar){
+	if(tar.pos){
+		return _controllingPlayer.pos.getMag(tar.pos);
+	}else if(typeof tar.x=="number" && typeof tar.y=="number"){
+		return _controllingPlayer.pos.getMag(tar);
+	}
+	return null;
+}
+function getState(){
+	return _visibleState;
+}
+function getPlayerList(includePlayer){
+	if(includePlayer==null||!includePlayer){
+		let pList=_visibleState.playersList.slice(0, _visibleState.playersList.length);
+		pList=pList.filter(player => player.uid!=_controllingPlayer.uid);
+		return pList;
+	}
+	return _visibleState.playersList;
+}
+function getBulletList(){
+	return _visibleState.bulletsList;
+}
+function getBulletListEnemy(){
+	let bList=_visibleState.bulletsList.slice(0, _visibleState.bulletsList.length);
+	bList=bList.filter(bullet => bullet.shooterUid!=_controllingPlayer.uid);
+	return bList;
+}
+function getBulletListFriendly(){
+	let bList=_visibleState.bulletsList.slice(0, _visibleState.bulletsList.length);
+	bList=bList.filter(bullet => bullet.shooterUid==_controllingPlayer.uid);
+	return bList;
+}
+function getClosest(tarList){
+	if(tarList.length==0){
+		return null;
+	}
+	let list=tarList.slice(0, tarList.length);
+	let testPos=new Vector(_controllingPlayer.pos);
+	let reducer=(accumulator, current) => {
+		let aDist=testPos.getMag(accumulator.pos);
+		let cDist=testPos.getMag(current.pos);
+		if(aDist<cDist){
+			return accumulator;
+		}else{
+			return current;
+		}
+	};
+	return list.reduce(reducer);
+}
+function getFurthest(tarList){
+	if(tarList.length==0){
+		return null;
+	}
+	let list=tarList.slice(0, tarList.length);
+	let testPos=new Vector(_controllingPlayer.pos);
+	let reducer=(accumulator, current) => {
+		let aDist=testPos.getMag(accumulator.pos);
+		let cDist=testPos.getMag(current.pos);
+		if(aDist>cDist){
+			return accumulator;
+		}else{
+			return current;
+		}
+	};
+	return list.reduce(reducer);
+}
+function getPlayer(){
+	return _controllingPlayer;
+}
+function runAt(tar){
+	if(tar==null){
+		return;
+	}
+	if(tar.pos){
+		let move=new Vector(tar.pos);
+		_move=move;
+	}else if(typeof tar.x=="number" && typeof tar.y=="number"){
+		let move=new Vector(tar);
+		_move=move;
+	}
+}
+function runFrom(tar){
+	if(tar==null){
+		return;
+	}
+	if(tar.pos){
+		let move=new Vector(tar.pos);
+		move.subVec(_controllingPlayer.pos);
+		move.sclVec(-1);
+		move.addVec(_controllingPlayer.pos);
+		_move=move;
+	}else if(typeof tar.x=="number" && typeof tar.y=="number"){
+		let move=new Vector(tar);
+		move.subVec(_controllingPlayer.pos);
+		move.sclVec(-1);
+		move.addVec(_controllingPlayer.pos);
+		_move=move;
+	}
+}
+function strafeAt(tar,direction){
+	if(tar==null){
+		return;
+	}
+	let rot=direction?Math.PI/2:-Math.PI/2;
+	if(tar.pos){
+		let move=new Vector(tar.pos);
+		move.subVec(_controllingPlayer.pos);
+		move.rotVec(rot);
+		move.addVec(_controllingPlayer.pos);
+		_move=move;
+	}else if(typeof tar.x=="number" && typeof tar.y=="number"){
+		let move=new Vector(tar);
+		move.subVec(_controllingPlayer.pos);
+		move.rotVec(rot);
+		move.addVec(_controllingPlayer.pos);
+		_move=move;
+	}
+}
+function stabilizeMovement(amount){
+	if(_move==null){
+		return;
+	}
+	let move=new Vector(_move);
+	move.subVec(_controllingPlayer.pos);
+	if(amount!=null){
+		move.sclVec(amount);
+	}else{
+		move.sclVec(5);
+	}
+	move.addVec(_controllingPlayer.pos);
+	_move=move;
+}
+function shootAt(tar){
+	if(tar==null){
+		return;
+	}
+	_attack=true;
+	if(tar.pos){
+		let aim=new Vector(tar.pos);
+		_aim=aim;
+	}else if(typeof tar.x=="number" && typeof tar.y=="number"){
+		let aim=new Vector(tar);
+		_aim=aim;
+	}
+}
+function shootFrom(tar){
+	if(tar==null){
+		return;
+	}
+	_attack=true;
+	if(tar.pos){
+		let aim=new Vector(tar.pos);
+		aim.subVec(_controllingPlayer.pos);
+		aim.sclVec(-1);
+		aim.addVec(_controllingPlayer.pos);
+		_aim=aim;
+	}else if(typeof tar.x=="number" && typeof tar.y=="number"){
+		let aim=new Vector(tar);
+		aim.subVec(_controllingPlayer.pos);
+		aim.sclVec(-1);
+		aim.addVec(_controllingPlayer.pos);
+		_aim=aim;
+	}
+}
+function getMapSize(){
+	return new Vector(_settings.size);
+}
+
 module.exports = function() {
 	this.Vector=Vector;
 	this.nrmAng=nrmAng;
 	this.nrm2Ang=nrm2Ang;
 	this.ControlRequest=ControlRequest;
+	this.prime=prime;
+	this.complete=complete;
+	this.getDist=getDist;
+	this.getState=getState;
+	this.getPlayerList=getPlayerList;
+	this.getBulletList=getBulletList;
+	this.getBulletListEnemy=getBulletListEnemy;
+	this.getBulletListFriendly=getBulletListFriendly;
+	this.getClosest=getClosest;
+	this.getFurthest=getFurthest;
+	this.getPlayer=getPlayer;
+	this.runAt=runAt;
+	this.runFrom=runFrom;
+	this.strafeAt=strafeAt;
+	this.stabilizeMovement=stabilizeMovement;
+	this.shootAt=shootAt;
+	this.shootFrom=shootFrom;
+	this.getMapSize=getMapSize;
 }

@@ -13,7 +13,7 @@ app.use(express.static('client'));
 
 
 //--------------------------------------------------------------
-const socket = ioClient.connect("http://localhost:4200");
+const socket = ioClient.connect("https://www.cimexis.io/");
 
 var state=null;
 var stateBaseline=null;
@@ -24,7 +24,9 @@ var bot=new Bot();
 setInterval(()=>{
 	if(state!=null){
 		let tarPlayer=getPlayerByUid(state.playerUid);
-		let req=bot.control(tarPlayer,state,settings);
+		prime(tarPlayer,state,settings);
+		bot.control();
+		let req=complete();
 		let reqStr=req.getString();
 		byteEstimateUp+=byteCount(reqStr);
 		socket.emit("control",reqStr);
