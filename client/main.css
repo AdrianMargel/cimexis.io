@@ -328,8 +328,8 @@ io-stat-select{
 	border: 2px solid #51BC76;
 	display: block;
 }*/
-.stats .item:hover .bar, .item:active .bar{
-	background-color: #EDEAE8;
+.item:active .bar>div .grabber{
+	display: block;
 }
 .general{
 	margin-top: 5px;
@@ -629,7 +629,7 @@ io-dropdown{
 	display: none;
 }
 
-.docsLink{
+.cornerButton{
 	position: absolute;
 	right: 0px;
 	top: 0px;

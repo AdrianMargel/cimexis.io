@@ -66,7 +66,7 @@ class SpawnDialog extends HTMLElement{
 		addClass("spawnDialog",this);
 		this.innerHTML=`
 			<div class="inner">
-				<button class="docsLink minor" onclick="window.location.href = './docs.html';">Docs</button>
+				<button class="cornerButton minor" onclick="window.location.href = './docs.html';">Docs</button>
 				<div class="head">
 					<p>Username</p>
 					<div class="username">
@@ -172,11 +172,13 @@ class StatSelect extends HTMLElement{
   	}
 
   	mMove(e){
+  		let box = this.getBoundingClientRect();
   		let target=this.bar;
-  		let elmPos=new Vector(target.offsetLeft,target.offsetTop);
+  		let elmPos=new Vector(box.left,box.top);
   		let elmSize=new Vector(target.offsetWidth,target.offsetHeight);
   		let clickPos=new Vector(e.clientX,e.clientY);
   		clickPos.subVec(elmPos);
+  		clickPos.x-=8;
   		if(elmSize.x!=0){
   			let amount=Math.min(Math.max(clickPos.x/elmSize.x,0),1)*100;
   			this.setVal(amount);
