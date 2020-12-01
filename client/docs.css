@@ -185,6 +185,9 @@ p.center{
 	font-size: 18px;
 }
 .methodList li{
+	font-size: 18px;
+}
+.methodList>li{
 	position: relative;
 	width: 600px;
 	max-width: 100%;
@@ -197,11 +200,12 @@ p.center{
 	padding: 5px 0;
 	border-bottom: 3px solid #AAA49D;
 	margin:0;
-	font-weight: 700;
+	font-weight: 900;
 }
-.methodList .name span{
+.methodList .name>span{
 	font-size: 16px;
 	font-weight: 400;
+	white-space: nowrap;
 }
 .methodList .description{
 	padding: 5px 25px;
@@ -212,9 +216,26 @@ p.center{
 	margin:0;
 }
 .methodList .parameter{
-	padding: 0px 25px;
+	padding: 0;
+	margin: 0 25px;
 	padding-top: 5px;
-	margin: 0;
+	position: relative;
+}
+.methodList .parameter::before{
+	position: absolute;
+	left: -18px;
+	top: 14px;
+	display: block;
+	width: 10px;
+	height: 3px;
+	background-color: #AAA49D;
+	content: " ";
+}
+.methodList .parameter .paraInfo{
+	color: #AAA49D;
+}
+.methodList .parameter .paraName{
+	font-weight: 700;
 }
 .code{
 	font-family: 'Share Tech Mono', monospace;
