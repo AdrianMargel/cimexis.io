@@ -4,7 +4,6 @@ TODO<<>>
 
 -global view
 
--documentation
 -validation
 -built in methods
 -client js editor
@@ -45,6 +44,11 @@ app.use(express.static(__dirname + '/node_modules'));
 // app.get('/', function(req, res,next) {  
 //     res.sendFile(__dirname + '/client/index.html');
 // });
+
+app.get('/download', function(req, res){
+	const file = `${__dirname}/bot.zip`;
+	res.download(file); // Set disposition and send it.
+});
 
 app.use(express.static('client'));
 
