@@ -331,6 +331,10 @@ io-stat-select{
 	display: flex;
 	justify-content: center;
 }
+p.center{
+	display: block;
+	text-align: center;
+}
 .arrow {
   border: solid black;
   border-width: 0 3px 3px 0;
