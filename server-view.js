@@ -132,6 +132,10 @@ io.on('connection', socket => {
 		}
 	});
 
+	socket.on('suicide', () => {
+		suicideUser(userId);
+	});
+
 	socket.on('control', (data) => {
 		if(data!=null){
 			controlSafe(userId,data);

@@ -215,22 +215,6 @@ io-stat-select{
 .split{
 	display: flex;
 }
-
-.controlContainer{
-	background-color: #F5F5F5;
-	min-width: 500px;
-	max-width: 500px;
-	overflow-y: auto;
-	height: 100vh;
-}
-.controlContainer .title{
-	text-align: center;
-	font-weight: 900;
-	font-size: 40px;
-}
-.controlContainer .gap{
-	margin-top: 8px;
-}
 .userInfo{
 	padding: 20px 50px;
 	padding-top: 0;
@@ -276,10 +260,6 @@ io-stat-select{
 	padding-left: 30px;
 	padding-right: 30px;
 	user-select: none;
-}
-.controlContainer .subtitle{
-	margin-top: 30px;
-	margin-bottom: 8px;
 }
 .stats .item{
 	font-size: 20px;

@@ -54,6 +54,12 @@ function disconnectUser(id){
 		}
 	}
 }
+function suicideUser(id){
+	let user=getUser(id);
+	if(user!=null&&user.player!=null){
+		user.player.kill();
+	}
+}
 function clearDead(){
 	for(let i=users.length-1;i>=0;i--){
 		if(users[i].player!=null&&users[i].player.isDead()){
@@ -218,4 +224,5 @@ module.exports = function() {
 	this.getSettings=getSettings;
 	this.getGlobalState=getGlobalState;
 	this.getGlobalGame=getGlobalGame;
+	this.suicideUser=suicideUser;
 }

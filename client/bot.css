@@ -1,0 +1,24 @@
+.controlContainer{
+	background-color: #F5F5F5;
+	min-width: 500px;
+	max-width: 500px;
+	height: calc(100vh - 40px);
+	display: flex;
+	flex-direction: column;
+	padding: 20px 20px;
+}
+.controlContainer .controls{
+	min-height: 100px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+.controlContainer #editorCode{
+	flex-grow: 1;
+	position: relative;
+	overflow: auto;
+}
+#editorCode .CodeMirror {
+	height: 100%;
+	font-size: 20px;
+}
