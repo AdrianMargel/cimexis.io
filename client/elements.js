@@ -66,7 +66,11 @@ class SpawnDialog extends HTMLElement{
 		addClass("spawnDialog",this);
 		this.innerHTML=`
 			<div class="inner">
-				<button class="cornerButton minor" onclick="window.location.href = './docs.html';">Docs</button>
+				<div class="cornerButtons">
+					<a class="buttonLink cornerButton minor disabled">Home</a>
+					<a class="buttonLink cornerButton minor" href="./docs.html">Docs</a>
+					<a class="buttonLink cornerButton minor" href="./bot.html">Bots</a>
+				</div>
 				<div class="head">
 					<p>Username</p>
 					<div class="username">

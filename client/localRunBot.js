@@ -29,14 +29,14 @@ Bot=class{
 		};
 	}
 	control(){
-
+		
 		//EDIT THE CODE BELOW:
-
+		
 		//shoot at and run towards closest player
 		let closestPlayer=getClosest(getPlayerList());
 		runAt(closestPlayer);
 		shootAt(closestPlayer);
-
+		
 		//if there is no player in sight
 		if(closestPlayer==null){
 			//move to a position on the map
@@ -61,11 +61,13 @@ Bot=class{
 
 var editor = CodeMirror(document.getElementById("editorCode"),{
 	value: starterCode,
-	mode: "javascript"
+	mode: "javascript",
+	tabSize: 2,
+	indentWithTabs: true
 });
 
 function resetCode(){
-	editor.setValue(starterCode,);
+	editor.setValue(starterCode);
 }
 function runCode(){
 	eval(editor.getValue());
@@ -216,6 +218,7 @@ socket.on('settings', (data) => {
 });
 socket.on('killed', (data) => {
 	//reset();
+	gameDisplay.following=null;
 });
 socket.on('meta', (data) => {
 	if(stateBaseline!=null){
