@@ -207,7 +207,7 @@ function spawnIn(){
     setTimeout(()=>{
     	socket.emit("spawn",toSpawn);
     	getElm("#canvasContainer",document.body).classList.remove("blur");
-    }, 100);
+    }, 500);
 }
 function reset(){
     getElm("#canvasContainer",document.body).classList.add("blur");
