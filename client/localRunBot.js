@@ -215,7 +215,7 @@ socket.on('settings', (data) => {
 	settings=data;
 });
 socket.on('killed', (data) => {
-	reset();
+	//reset();
 });
 socket.on('meta', (data) => {
 	if(stateBaseline!=null){

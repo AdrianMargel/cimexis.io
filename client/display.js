@@ -293,10 +293,10 @@ class Display{
 		// this.ctx.stroke();
 		this.ctx.setLineDash([]);
 
-		var maskCanvas = document.createElement('canvas');
+		let maskCanvas = document.createElement('canvas');
 		maskCanvas.width = canvas.width;
 		maskCanvas.height = canvas.height;
-		var maskCtx = maskCanvas.getContext('2d');
+		let maskCtx = maskCanvas.getContext('2d');
 		maskCtx.fillStyle = "#EFE9D7";
 		maskCtx.fillRect(0, 0, maskCanvas.width, maskCanvas.height);
 		maskCtx.globalCompositeOperation = 'xor';
