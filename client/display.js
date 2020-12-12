@@ -230,6 +230,7 @@ class Display{
 	calcCam(){
 		if(this.following!=null){
 			this.cam.zoom = Math.max(this.canvasSize.x,this.canvasSize.y)/(this.following.sight+5);
+			this.cam.zoom = Math.max(this.cam.zoom,0.01); //make sure the zoom doesn't end up as 0
 			this.cam.pos=new Vector(this.following.pos);
 			let offset=new Vector(this.canvasSize);
 			offset.sclVec(0.5);

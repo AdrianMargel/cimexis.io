@@ -33,9 +33,12 @@
 		</div>
 		<div id="controlContainer" class="controlContainer">
 			<div class="controls">
-				<button onclick="runCode();">Run</button>
-				<button onclick="spawnIn();">Respawn</button>
-				<button onclick="resetCode();">Reset</button>
+				<div class="background">
+					<button onclick="runCode();">Run</button>
+					<button onclick="spawnIn();">Respawn</button>
+					<button onclick="resetCode();">Reset</button>
+					<button class="sizingButton" onclick="toggleExpand();">Expand</button>
+				</div>
 			</div>
 			<div id="editorCode"></div>
 		</div>

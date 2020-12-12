@@ -67,11 +67,25 @@ var editor = CodeMirror(document.getElementById("editorCode"),{
 });
 
 function resetCode(){
-	editor.setValue(starterCode);
+	if (confirm("Are you sure you would like to reset your code?")) {
+		editor.setValue(starterCode);
+	}
 }
 function runCode(){
 	eval(editor.getValue());
 	playerBot=new Bot();
+}
+function toggleExpand(){
+	let container=getElm(".controlContainer");
+	let button=getElm(".sizingButton");
+	if(container.classList.contains("expanded")){
+		container.classList.remove("expanded");
+		button.innerText="Expand";
+	}else{
+		container.classList.add("expanded");
+		button.innerText="Shrink";
+	}
+	gameDisplay.updateSize();
 }
 
 setInterval(()=>{

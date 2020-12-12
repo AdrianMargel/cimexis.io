@@ -1,17 +1,60 @@
 .controlContainer{
 	background-color: #F5F5F5;
-	min-width: 500px;
-	max-width: 500px;
+	width: 500px;
 	height: calc(100vh - 40px);
 	display: flex;
 	flex-direction: column;
 	padding: 20px 20px;
 }
+.controlContainer.expanded{
+	min-width: calc(100vw - 40px);
+}
 .controlContainer .controls{
-	min-height: 100px;
+	min-height: 80px;
 	display: flex;
 	justify-content: space-around;
-	align-items: center;
+	align-items: flex-end;
+	border: 2px solid #AAA49D;
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+}
+.controlContainer .controls .background{
+	border-top: 2px solid #AAA49D;
+	background-color: #EDEAE8;
+	flex-grow: 1;
+	display: flex;
+	justify-content: center;
+}
+.controlContainer .controls button{
+	margin: 0;
+	flex-grow: 1;
+	flex-basis: 0;
+	border-radius: 0;
+	background-color: #EDEAE8;
+	border: none;
+	color: #AAA49D;
+	padding: 8px 0;
+}
+.controlContainer .controls button:hover{
+	color: #EDEAE8;
+	background-color: #AAA49D;
+	padding: 3px 0;
+	padding-bottom: 5px;
+	margin-top: 5px;
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+}
+.controlContainer .controls button:active{
+	color: #EDEAE8;
+	background-color: #AAA49D;
+	padding: 3px 0;
+	padding-bottom: 5px;
+	margin-top: 5px;
+	border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
+
+	padding-bottom: 0;
+	margin-top: 10px;
 }
 .controlContainer #editorCode{
 	flex-grow: 1;
