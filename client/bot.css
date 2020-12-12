@@ -8,6 +8,7 @@
 }
 .controlContainer.expanded{
 	min-width: calc(100vw - 40px);
+	position: absolute;
 }
 .controlContainer .controls{
 	min-height: 80px;
