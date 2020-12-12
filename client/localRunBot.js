@@ -67,9 +67,7 @@ var editor = CodeMirror(document.getElementById("editorCode"),{
 });
 
 function resetCode(){
-	if (confirm("Are you sure you would like to reset your code?")) {
-		editor.setValue(starterCode);
-	}
+	editor.setValue(starterCode);
 }
 function runCode(){
 	eval(editor.getValue());
